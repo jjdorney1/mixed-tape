@@ -1,24 +1,34 @@
 package com.theironyard.entity;
 
+import javax.persistence.*;
 import java.util.List;
 
 /**
  * Created by davehochstrasser on 10/3/16.
  */
+@Entity
 public class Playlist {
 
-    private String id;
+    @Id
+    private Integer id; // our id
+
+    private String playlistId; // from spotify
+
     private String name;
     private Boolean status;
     private List<Song>songs;
     private String picture;
     private Integer length;
 
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Song song;
+
     public Playlist() {
     }
 
-    public Playlist(String id, String name, Boolean status, List<Song> songs, String picture, Integer length) {
+    public Playlist(Integer id, String playlistId, String name, Boolean status, List<Song> songs, String picture, Integer length) {
         this.id = id;
+        this.playlistId = playlistId;
         this.name = name;
         this.status = status;
         this.songs = songs;
@@ -26,17 +36,18 @@ public class Playlist {
         this.length = length;
     }
 
-    public Playlist(String id, String name, String picture) {
+    public Playlist(Integer id, String playlistId, String name, String picture) {
         this.id = id;
+        this.playlistId = playlistId;
         this.name = name;
         this.picture = picture;
     }
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -78,5 +89,21 @@ public class Playlist {
 
     public void setLength(Integer length) {
         this.length = length;
+    }
+
+    public String getPlaylistId() {
+        return playlistId;
+    }
+
+    public void setPlaylistId(String playlistId) {
+        this.playlistId = playlistId;
+    }
+
+    public Song getSong() {
+        return song;
+    }
+
+    public void setSong(Song song) {
+        this.song = song;
     }
 }

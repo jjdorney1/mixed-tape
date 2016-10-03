@@ -1,18 +1,32 @@
 package com.theironyard.entity;
 
+import javax.persistence.*;
 import java.util.Date;
 
 /**
  * Created by davehochstrasser on 10/3/16.
  */
+@Entity
 public class User {
+
+    @Id
+    private Integer id; // our id
+
+    private String userId; // from spotify
+
     private String name;
-    private Integer id;
     private String picture;
     private Integer followers;
     private String country;
     private Date birthday;
     private Boolean active;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Song song;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Playlist playlist;
+
 
     public User() {}
 

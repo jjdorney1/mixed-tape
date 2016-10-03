@@ -1,17 +1,30 @@
 package com.theironyard.entity;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import java.util.List;
 
 /**
  * Created by davehochstrasser on 10/3/16.
  */
+@Entity
 public class Song {
+
+    @Id
+    private Integer id; // our id
+
+    private String songId; // spotify id
+
     private String artist;
-    private String id;
     private String name;
     private String album;
     private List<String>genres;
     private String picture;
+
+    @ManyToOne
+    private User user;
+
 
     public String getPicture() {
         return picture;
@@ -24,18 +37,20 @@ public class Song {
     public Song() {
     }
 
-    public Song(String artist, String id, String name, String album, List<String> genres, String picture) {
+    public Song(String artist, Integer id, String songId, String name, String album, List<String> genres, String picture) {
         this.artist = artist;
         this.id = id;
+        this.songId = songId;
         this.name = name;
         this.album = album;
         this.genres = genres;
         this.picture = picture;
     }
 
-    public Song(String artist, String id, String name) {
+    public Song(String artist, Integer id, String songId, String name) {
         this.artist = artist;
         this.id = id;
+        this.songId = songId;
         this.name = name;
     }
 
@@ -47,11 +62,11 @@ public class Song {
         this.artist = artist;
     }
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -79,6 +94,19 @@ public class Song {
         this.genres = genres;
     }
 
+    public String getSongId() {
+        return songId;
+    }
 
+    public void setSongId(String songId) {
+        this.songId = songId;
+    }
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 }

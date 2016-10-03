@@ -2,7 +2,7 @@
 <html>
   <head>
     <title>Example of the Authorization Code flow with Spotify</title>
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../static/css/styles.css">
     <style type="text/css">
       #login, #loggedin {
         display: none;
@@ -17,11 +17,15 @@
   </head>
 
   <body>
+  <div class="mosaic">
     <div class="container">
       <div id="login">
         <h1>Mixed Tape</h1>
-        <p>Welcome to Mixed Tape</p>
-        <p>Mixed Tape is an automated way to make a playlist of music you don't have saved in you Spotify
+
+          <p>WARNING! This process is supposed to be simple. Don't be scared, it'll be okay.</p>
+          <img src="../../static/images/mixed%20tape.jpeg" />
+          <p><h2>Welcome to Mixed Tape</h2></p>
+        <p>Mixed Tape is an automated way to make a playlist of music you don't have saved in your Spotify
           library or playlists. We will wrangle up your friends music, sort it, organize it, drop the songs
           you already have, and deliver a brand spanking new personal playlist of tunes that you can explore.</p>
         <p>Click below to login and start this experience.</p>
@@ -34,7 +38,7 @@
         <div id="oauth">
         </div>
         <button class="btn btn-default" id="obtain-new-token">Obtain new token using the refresh token</button><br />
-        <button><a href="index.html">Instructions</a></button>
+        <button><a href="loading.html">Instructions</a></button>
       </div>
     </div>
 
@@ -144,6 +148,7 @@
         }
       })();
     </script>
+  </div>
   </body>
 </html>
 

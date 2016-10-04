@@ -1,5 +1,7 @@
 package com.theironyard.entity;
 
+import org.hibernate.validator.constraints.NotBlank;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -10,53 +12,44 @@ import java.util.List;
 public class Playlist {
 
     @Id
-    private Integer id; // our id
+    @NotBlank
+    private String id; // from spotify
 
-    private String playlistId; // from spotify
-
-    private String name;
+    private String title;
     private Boolean status;
-    private List<Song>songs;
     private String picture;
     private Integer length;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private Song song;
+    @ManyToMany
+    @JoinColumn(name = "playlist_id")
+    private List<Song> songs;
 
     public Playlist() {
     }
 
-    public Playlist(Integer id, String playlistId, String name, Boolean status, List<Song> songs, String picture, Integer length) {
+    public Playlist(String id, String title, Boolean status, List<Song> songs, String picture, Integer length) {
         this.id = id;
-        this.playlistId = playlistId;
-        this.name = name;
+        this.title = title;
         this.status = status;
         this.songs = songs;
         this.picture = picture;
         this.length = length;
     }
 
-    public Playlist(Integer id, String playlistId, String name, String picture) {
+    public Playlist(String id,  String title, String picture) {
         this.id = id;
-        this.playlistId = playlistId;
-        this.name = name;
+        this.title = title;
         this.picture = picture;
     }
 
-    public Integer getId() {
-        return id;
+
+
+    public String getTitle() {
+        return title;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public Boolean getStatus() {
@@ -91,19 +84,13 @@ public class Playlist {
         this.length = length;
     }
 
-    public String getPlaylistId() {
-        return playlistId;
+    public String getId() {
+        return id;
     }
 
-    public void setPlaylistId(String playlistId) {
-        this.playlistId = playlistId;
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public Song getSong() {
-        return song;
-    }
 
-    public void setSong(Song song) {
-        this.song = song;
-    }
 }

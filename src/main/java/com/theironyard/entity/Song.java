@@ -1,9 +1,9 @@
 package com.theironyard.entity;
 
+import org.hibernate.validator.constraints.NotBlank;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import java.util.List;
 
 /**
  * Created by davehochstrasser on 10/3/16.
@@ -12,18 +12,19 @@ import java.util.List;
 public class Song {
 
     @Id
-    private Integer id; // our id
-
-    private String songId; // spotify id
+    @NotBlank
+    private String id; // spotify id
 
     private String artist;
-    private String name;
+    private String song;
     private String album;
-    private List<String>genres;
     private String picture;
 
-    @ManyToOne
-    private User user;
+//    @ManyToMany
+//    @Fetch(FetchMode.SELECT)
+//    @JoinColumn(name = "song_id")
+//    private List<User>users;
+
 
 
     public String getPicture() {
@@ -37,21 +38,18 @@ public class Song {
     public Song() {
     }
 
-    public Song(String artist, Integer id, String songId, String name, String album, List<String> genres, String picture) {
+    public Song(String artist, String id,  String song, String album, String picture) {
         this.artist = artist;
         this.id = id;
-        this.songId = songId;
-        this.name = name;
+        this.song = song;
         this.album = album;
-        this.genres = genres;
         this.picture = picture;
     }
 
-    public Song(String artist, Integer id, String songId, String name) {
+    public Song(String artist, String id,  String song) {
         this.artist = artist;
         this.id = id;
-        this.songId = songId;
-        this.name = name;
+        this.song = song;
     }
 
     public String getArtist() {
@@ -62,20 +60,12 @@ public class Song {
         this.artist = artist;
     }
 
-    public Integer getId() {
-        return id;
+    public String getSong() {
+        return song;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
+    public void setSong(String song) {
+        this.song = song;
     }
 
     public String getAlbum() {
@@ -86,27 +76,20 @@ public class Song {
         this.album = album;
     }
 
-    public List<String> getGenres() {
-        return genres;
+
+    public String getId() {
+        return id;
     }
 
-    public void setGenres(List<String> genres) {
-        this.genres = genres;
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public String getSongId() {
-        return songId;
-    }
-
-    public void setSongId(String songId) {
-        this.songId = songId;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
+//    public List<User> getUsers() {
+//        return users;
+//    }
+//
+//    public void setUsers(List<User> users) {
+//        this.users = users;
+//    }
 }

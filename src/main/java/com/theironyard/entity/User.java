@@ -1,46 +1,53 @@
 package com.theironyard.entity;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by davehochstrasser on 10/3/16.
  */
 @Entity
+@Table(name = "users")
 public class User {
 
-    @Id
-    private Integer id; // our id
 
-    private String userId; // from spotify
+    @Id
+    private String id; // from spotify
 
     private String name;
     private String picture;
-    private Integer followers;
+    private Integer follower;
     private String country;
     private Date birthday;
     private Boolean active;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private Song song;
+    @ManyToMany
+    @Fetch(FetchMode.SELECT)
+    @JoinColumn(name = "song_id")
+    private List<Song> songs;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private Playlist playlist;
+    @ManyToMany
+    @Fetch(FetchMode.SELECT)
+    private List<Playlist>playlists;
 
 
     public User() {}
 
-    public User(String name, Integer id, String picture, Integer followers, String country, Date birthday, Boolean active) {
+    public User(String name, String id, String picture, Integer followers, String country, Date birthday, Boolean active) {
         this.name = name;
         this.id = id;
         this.picture = picture;
-        this.followers = followers;
+        this.follower = followers;
         this.country = country;
         this.birthday = birthday;
         this.active = active;
     }
 
-    public User(String name, Integer id, String picture) {
+    public User(String name, String id, String picture) {
         this.name = name;
         this.id = id;
         this.picture = picture;
@@ -54,11 +61,11 @@ public class User {
         this.name = name;
     }
 
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -70,12 +77,12 @@ public class User {
         this.picture = picture;
     }
 
-    public Integer getFollowers() {
-        return followers;
+    public Integer getFollower() {
+        return follower;
     }
 
-    public void setFollowers(Integer followers) {
-        this.followers = followers;
+    public void setFollower(Integer follower) {
+        this.follower = follower;
     }
 
     public String getCountry() {
@@ -102,6 +109,19 @@ public class User {
         this.active = active;
     }
 
+    public List<Song> getSongs() {
+        return songs;
+    }
 
+    public void setSongs(List<Song> songs) {
+        this.songs = songs;
+    }
 
+    public List<Playlist> getPlaylists() {
+        return playlists;
+    }
+
+    public void setPlaylists(List<Playlist> playlists) {
+        this.playlists = playlists;
+    }
 }

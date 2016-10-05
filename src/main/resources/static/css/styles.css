@@ -9,12 +9,12 @@
     background-size: cover;
     text-shadow: 2px 2px 2px black;
 }
-.mosaic {
+body {
     background:
-        /* top, transparent red, faked with gradient */
+        /* top, transparent grey, faked with gradient */
             linear-gradient(
-                    rgba(60, 60,60, 0.6),
-                    rgba(60, 60, 60, 0.6)
+                    rgba(60, 60,60, 0.7),
+                    rgba(60, 60, 60, 0.7)
             ),
                 /* bottom, image */
             url(../images/albummosaic.jpg);

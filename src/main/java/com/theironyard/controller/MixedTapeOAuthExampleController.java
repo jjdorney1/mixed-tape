@@ -74,7 +74,7 @@ public class MixedTapeOAuthExampleController {
             headers.setContentType(MediaType.APPLICATION_JSON);
 
             HttpEntity<String> entity = new HttpEntity<String>("parameters", headers);
-            spotifyApi.put(apiTokenUrl, entity);
+            spotifyApi.put(authUrl, entity);
 
             TokenResponse response = spotifyApi.postForObject(this.apiTokenUrl, request, TokenResponse.class);
 

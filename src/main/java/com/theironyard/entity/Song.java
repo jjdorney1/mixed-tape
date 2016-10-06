@@ -1,9 +1,14 @@
 package com.theironyard.entity;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.validator.constraints.NotBlank;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
+import java.util.List;
 
 /**
  * Created by davehochstrasser on 10/3/16.
@@ -20,12 +25,10 @@ public class Song {
     private String album;
     private String picture;
 
-//    @ManyToMany
-//    @Fetch(FetchMode.SELECT)
-//    @JoinColumn(name = "song_id")
-//    private List<User>users;
-
-
+    @ManyToMany
+    @Fetch(FetchMode.SELECT)
+    @JoinColumn(name = "song_id")
+    private List<User> users;
 
     public String getPicture() {
         return picture;
@@ -76,7 +79,6 @@ public class Song {
         this.album = album;
     }
 
-
     public String getId() {
         return id;
     }
@@ -85,11 +87,13 @@ public class Song {
         this.id = id;
     }
 
-//    public List<User> getUsers() {
-//        return users;
-//    }
-//
-//    public void setUsers(List<User> users) {
-//        this.users = users;
-//    }
+    public List<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<User> users) {
+        this.users = users;
+    }
+
+
 }

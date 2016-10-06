@@ -22,16 +22,16 @@ public class Playlist {
 
     @ManyToMany
     @JoinColumn(name = "playlist_id")
-    private List<Song> songs;
+    private List<Track> tracks;
 
     public Playlist() {
     }
 
-    public Playlist(String id, String title, Boolean status, List<Song> songs, String picture, Integer length) {
+    public Playlist(String id, String title, Boolean status, List<Track> tracks, String picture, Integer length) {
         this.id = id;
         this.title = title;
         this.status = status;
-        this.songs = songs;
+        this.tracks = tracks;
         this.picture = picture;
         this.length = length;
     }
@@ -60,12 +60,12 @@ public class Playlist {
         this.status = status;
     }
 
-    public List<Song> getSongs() {
-        return songs;
+    public List<Track> getTracks() {
+        return tracks;
     }
 
-    public void setSongs(List<Song> songs) {
-        this.songs = songs;
+    public void setTracks(List<Track> tracks) {
+        this.tracks = tracks;
     }
 
     public String getPicture() {

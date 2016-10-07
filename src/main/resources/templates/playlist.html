@@ -1,31 +1,80 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8" />
+    <meta charset="UTF-8"/>
     <title>Playlist</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
     <link rel="stylesheet" href="../static/css/styles.css" th:href="@{css/styles.css}">
 </head>
 <body>
+<div class="mosaic">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-4"></div>
+            <div class="col-sm-4">
+                <h1>Playlist Page</h1>
+            </div>
+            <div class="col-sm-4"></div>
 
-<h1>Playlist Page</h1> <br />
-<form>
-<label>Rename your playlist</label>
-    <input type="text" placeholder="playlist song"/>
-    <button>Rename Playlist</button>
-</form>
-<div>
-    <img src="../static/images/playlistscreenshot.png" width="500">
-</div>
-<button><a href="index.html">Back to Login</a></button>
-<div>
-    <a href="http://spotify.com"> <img src="../static/images/spotifyicon.ico" width="100"/></a>
-</div>
-<div>
-    <a href="http://facebook.com"> <img src="../static/images/facebook.svg" width="100"/></a>
-</div>
-<div>
-    <a href="http://twitter.com"> <img src="../static/images/twitter.png" width="100"/></a>
-</div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4"></div>
+            <div class="col-sm-4">
+                <input type="text" placeholder="Uri Box"/>
+                <button>Submit Uri</button>
+            </div>
+            <div class="col-sm-4"></div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4"></div>
+            <div class="col-sm-4">
+                <div class="button">
+                    <button type="submit"
+                    <img class="button" th:src="@{../static/images/button.png}" src="../static/images/button.png" alt="Go!"/>
+                </div>
+            </div>
+            <div class="col-sm-4"></div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4">
+                <iframe src="https://scontent.xx.fbcdn.net/v/t1.0-1/p200x200/12654554_10153970766792764_4292116442038114965_n.jpg?oh=3b940362166b4c94b1f78c26fedef9a9&oe=58A5E0A7"
+                        width="300" height="300" frameborder="0" allowtransparency="true"></iframe>
+                <iframe src="https://embed.spotify.com/?uri=spotify%3Auser%3Aqlmhuge%3Aplaylist%3A6Df19VKaShrdWrAnHinwVO"
+                        width="300" height="380" frameborder="0" allowtransparency="true"></iframe>
+            </div>
+            <div class="col-sm-4"></div>
+            <div class="col-sm-4">
+                <iframe src=https://scontent.xx.fbcdn.net/v/t1.0-1/p200x200/14355073_10102728528065047_1793793716931120830_n.jpg?oh=7aa7896b53e4f836467c04ec94f18048&oe=586F0D09
+                        width="300" height="300" frameborder="0" allowtransparency="true"></iframe>
+                <iframe src="https://embed.spotify.com/?uri=spotify%3Auser%3Aqlmhuge%3Aplaylist%3A6Df19VKaShrdWrAnHinwVO"
+                        width="300" height="380" frameborder="0" allowtransparency="true"></iframe>
+            </div
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4"></div>
+            <div class="col-md-4">
+                <iframe src="https://embed.spotify.com/?uri=spotify%3Auser%3A1261004164%3Aplaylist%3A3N0zsiDQcbQvE2xz3YIvTu"
+                        width="300" height="380" frameborder="0" allowtransparency="true"></iframe></br>
+                <input type="text" placeholder="Rename"/>
+                <button>Save</button>
+            </div>
+            <div class="col-md-4"></div>
 
+        </div>
+    </div>
+</div>
+<br/>
+
+
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+        crossorigin="anonymous"></script>
 </body>
 </html>

@@ -1,3 +1,4 @@
+
 package com.theironyard.entity;
 
 import org.hibernate.annotations.Fetch;
@@ -7,9 +8,11 @@ import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
+
 /**
  * Created by davehochstrasser on 10/3/16.
  */
+
 @Entity
 @Table(name = "users")
 public class User {

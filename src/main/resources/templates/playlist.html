@@ -14,7 +14,7 @@
         <div class="row">
             <div class="col-sm-4"></div>
             <div class="col-sm-4">
-                <h1>Playlist Page</h1>
+                <h1>Mixed Tape</h1>
             </div>
             <div class="col-sm-4"></div>
 
@@ -22,18 +22,31 @@
         <div class="row">
             <div class="col-sm-4"></div>
             <div class="col-sm-4">
-                <input type="text" placeholder="Uri Box"/>
-                <button>Submit Uri</button>
+
+                <div>
+                    <input type="text" name="id" placeholder="Place your friend Uri here">
+
+                    <form method="get" action="/client_credentials">
+                        <input type="image" th:src="@{../static/images/button.png}" src="../static/images/button.png" alt="Go!"/>
+                    </form>
+                </div>
+                <div>
+                    <select id="user_id" name="user_id">
+                        <option>select..</option>
+                        <option th:each="user: ${users}"
+                                th:text="${user.id}"
+                                th:href="${https://api.spotify.com/v1/users/wizzler}">JM Wizzler</option>
+                    </select>
+                </div>
             </div>
             <div class="col-sm-4"></div>
         </div>
         <div class="row">
             <div class="col-sm-4"></div>
             <div class="col-sm-4">
-                <div class="button">
-                    <button type="submit"
-                    <img class="button" th:src="@{../static/images/button.png}" src="../static/images/button.png" alt="Go!"/>
-                </div>
+
+                    <input type="image" th:src="@{../static/images/button.png}" src="../static/images/button.png" alt="Go!"/>
+
             </div>
             <div class="col-sm-4"></div>
         </div>

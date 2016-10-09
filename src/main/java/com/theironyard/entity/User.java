@@ -1,3 +1,4 @@
+
 package com.theironyard.entity;
 
 import org.hibernate.annotations.Fetch;
@@ -7,9 +8,11 @@ import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
+
 /**
  * Created by davehochstrasser on 10/3/16.
  */
+
 @Entity
 @Table(name = "users")
 public class User {
@@ -27,8 +30,7 @@ public class User {
 
     @ManyToMany
     @Fetch(FetchMode.SELECT)
-    @JoinColumn(name = "song_id")
-    private List<Song> songs;
+    private List<Track> tracks;
 
     @ManyToMany
     @Fetch(FetchMode.SELECT)
@@ -109,12 +111,12 @@ public class User {
         this.active = active;
     }
 
-    public List<Song> getSongs() {
-        return songs;
+    public List<Track> getTracks() {
+        return tracks;
     }
 
-    public void setSongs(List<Song> songs) {
-        this.songs = songs;
+    public void setTracks(List<Track> tracks) {
+        this.tracks = tracks;
     }
 
     public List<Playlist> getPlaylists() {

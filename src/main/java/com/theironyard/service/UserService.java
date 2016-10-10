@@ -127,7 +127,7 @@ public class UserService {
             int offset = 0;
 
             // DO: get the tracks -- WHILE: next track is not null
-            do {
+//            do {
                 // gets a Page of LibraryTracks 50 long at an ever increasing offset
                 libraryTrackPage = api.getMySavedTracks()
                         .limit(50)
@@ -142,7 +142,7 @@ public class UserService {
                 // increment offset
                 offset++;
 
-            } while (libraryTrackPage.getNext() != null);
+//            } while (libraryTrackPage.getNext() != null);
 
         } catch (IOException | WebApiException e) {
             e.printStackTrace();

@@ -114,20 +114,16 @@ public class UserService {
 
 
     public ArrayList<String> getSavedTracks(Api api) throws NullPointerException {
-        Page<LibraryTrack> libraryTrackPage = null;
-        List<LibraryTrack> libraryTracks = null;
-        LibraryTrack libraryTrack;
+        Page<LibraryTrack> libraryTrackPage;
         Track track;
-        ArrayList<Track> trackArrayList = null;
         ArrayList<String> tracks = new ArrayList<>();
-
 
         try {
             // offset initializer
             int offset = 0;
 
             // DO: get the tracks -- WHILE: next track is not null
-            do {
+            // do {
                 // gets a Page of LibraryTracks 50 long at an ever increasing offset
                 libraryTrackPage = api.getMySavedTracks()
                         .limit(50)
@@ -142,7 +138,42 @@ public class UserService {
                 // increment offset
                 offset++;
 
-            } while (libraryTrackPage.getNext() != null);
+            // } while (libraryTrackPage.getNext() != null);
+
+        } catch (IOException | WebApiException e) {
+            e.printStackTrace();
+        }
+
+        return tracks;
+    }
+
+    // collect albums
+    public ArrayList<String> getSavedAlbums(Api api) throws NullPointerException {
+        Page<LibraryTrack> libraryTrackPage;
+        Track track;
+        ArrayList<String> tracks = new ArrayList<>();
+
+        try {
+            // offset initializer
+            int offset = 0;
+
+            // DO: get the tracks -- WHILE: next track is not null
+            // do {
+            // gets a Page of LibraryTracks 50 long at an ever increasing offset
+            libraryTrackPage = api.getMySavedTracks()
+                    .limit(50)
+                    .offset(offset)
+                    .build().get();
+
+            // for loop to add each track's ID to an ArrayList of Track
+            for (int x = 1; x < 50; x++) {
+                track = libraryTrackPage.getItems().get(x).getTrack();
+                tracks.add(track.getId());
+            }
+            // increment offset
+            offset++;
+
+            // } while (libraryTrackPage.getNext() != null);
 
         } catch (IOException | WebApiException e) {
             e.printStackTrace();
@@ -162,7 +193,6 @@ public class UserService {
 
         return track;
     }
-
 
     public List<LibraryTrack> getUserSavedTracks(Api api) {
         List<LibraryTrack> tracks = null;

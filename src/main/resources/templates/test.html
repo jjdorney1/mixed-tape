@@ -26,7 +26,7 @@
 <!--/*@thymesVar id="service" type="com.theironyard.service.UserService"*/-->
 
     <div>Name:<div th:text="${user.getDisplayName()}">Fred</div></div><br/>
-    <div>Image:<img th:src="${image.getUrl()}" /></div><br/>
+    <div>Image:<img th:text="${image.getUrl()}" /></div><br/>
     <div>ID: <div th:text="${user.getId()}">404</div></div><br/>
     <div>Image: <div th:text="${user.getImages()}">Image?</div></div><br/>
     <div>Followers: <div th:text="${user.getFollowers()}">4</div></div><br/>
@@ -37,7 +37,10 @@
     <div>Get track: <div th:text="${user.getDisplayName()}">Open</div></div><br/>
 
 
-    <div th:text="${user.getUri()}">
+    <div >
+        <ol th:each="track : ${userPlaylistTracks}" start="1">
+            <a th:href="'https://open.spotify.com/track/' + ${track}" href="https://open.spotify.com/track/3mAyjnYIWLeDixdNO6Joz6"><li th:text="${track}">Song ID</li></a>
+        </ol>
     </div>
     <div>
         <iframe src="https://embed.spotify.com/?uri=spotify%3Auser%3Aqlmhuge%3Aplaylist%3A6Df19VKaShrdWrAnHinwVO" width="500" height="440" frameborder="0" allowtransparency="true"></iframe>

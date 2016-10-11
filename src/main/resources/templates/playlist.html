@@ -4,17 +4,18 @@
     <meta charset="UTF-8"/>
     <title>Playlist</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
 
-    <link rel="stylesheet" href="../static/css/styles.css" th:href="@{css/styles.css}">
+    <link rel="stylesheet" href="../static/css/styles.css" th:href="@{css/styles.css}"/>
 </head>
 <body>
+<a href="playlist.html" th:href="@{playlist}"></a>
 <div class="mosaic">
     <div class="container">
         <div class="row">
             <div class="col-sm-4"></div>
             <div class="col-sm-4">
-                <h1>Mixed Tape</h1>
+                <h1 class="center-me">Mixed Tape</h1>
             </div>
             <div class="col-sm-4"></div>
 
@@ -23,57 +24,74 @@
             <div class="col-sm-4"></div>
             <div class="col-sm-4">
 
-                <div>
-                    <input type="text" name="id" placeholder="Place your friend Uri here">
+                <form class="center-me" method="get" action="/client_credentials" th:action="@{client_credentials}">
+                    <input type="text" name="id" placeholder="Friend's Uri here"/>
+                    <div>
+                        <a href="/addUrl" th:href="@{addUrl}" class="btn btn-primary">Go!</a>
+                    </div>
+                </form>
+                <form class="center-me" method="get" action="/client_credentials" th:action="@{client_credentials}">
+                    <div class="center-me">
+                        <select id="user_id" name="user_id">
+                            <option>select..</option>
+                            <option th:each="user: ${users}"
+                                    th:text="${user.id}"
+                                    th:src="${https://api.spotify.com/v1/users/wizzler}">
+                            </option>
+                        </select>
+                        <div>
+                            <a href="/chooseUrl" th:href="@{chooseUrl}" class="btn btn-primary">Go!</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col-sm-4"></div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4"></div>
+            <div class="col-sm-4">
 
-                    <form method="get" action="/client_credentials">
-                        <input type="image" th:src="@{../static/images/button.png}" src="../static/images/button.png" alt="Go!"/>
-                    </form>
+            </div>
+            <div class="col-sm-4"></div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="center-me">
+                    <iframe class="circlepic"
+                            src="https://api.spotify.com/v1/users/{user_id}"
+                            th:src="@{https://api.spotify.com/v1/users/{user_id}}"
+                            width="200" height="200" frameborder="0" allowtransparency="true"></iframe>
+                    <iframe src="https://embed.spotify.com/?uri=spotify%3Auser%3Aqlmhuge%3Aplaylist%3A6Df19VKaShrdWrAnHinwVO"
+                            width="300" height="380" frameborder="0" allowtransparency="true"></iframe>
                 </div>
-                <div>
-                    <select id="user_id" name="user_id">
-                        <option>select..</option>
-                        <option th:each="user: ${users}"
-                                th:text="${user.id}"
-                                th:href="${https://api.spotify.com/v1/users/wizzler}">JM Wizzler</option>
-                    </select>
+            </div>
+            <div class="col-sm-4"></div>
+            <div class="col-sm-4">
+                <div class="center-me">
+                    <iframe class="circlepic"
+                            src="https://api.spotify.com/v1/users/{user_id}"
+                            th:src="@{https://api.spotify.com/v1/users/{user_id}}"
+                            width="200" height="200" frameborder="0" allowtransparency="true"></iframe>
+                    <iframe src="https://embed.spotify.com/?uri=spotify%3Auser%3Aqlmhuge%3Aplaylist%3A6Df19VKaShrdWrAnHinwVO"
+                            width="300" height="380" frameborder="0" allowtransparency="true"></iframe>
                 </div>
             </div>
-            <div class="col-sm-4"></div>
-        </div>
-        <div class="row">
-            <div class="col-sm-4"></div>
-            <div class="col-sm-4">
-
-                    <input type="image" th:src="@{../static/images/button.png}" src="../static/images/button.png" alt="Go!"/>
-
-            </div>
-            <div class="col-sm-4"></div>
-        </div>
-        <div class="row">
-            <div class="col-sm-4">
-                <iframe src="https://scontent.xx.fbcdn.net/v/t1.0-1/p200x200/12654554_10153970766792764_4292116442038114965_n.jpg?oh=3b940362166b4c94b1f78c26fedef9a9&oe=58A5E0A7"
-                        width="300" height="300" frameborder="0" allowtransparency="true"></iframe>
-                <iframe src="https://embed.spotify.com/?uri=spotify%3Auser%3Aqlmhuge%3Aplaylist%3A6Df19VKaShrdWrAnHinwVO"
-                        width="300" height="380" frameborder="0" allowtransparency="true"></iframe>
-            </div>
-            <div class="col-sm-4"></div>
-            <div class="col-sm-4">
-                <iframe src=https://scontent.xx.fbcdn.net/v/t1.0-1/p200x200/14355073_10102728528065047_1793793716931120830_n.jpg?oh=7aa7896b53e4f836467c04ec94f18048&oe=586F0D09
-                        width="300" height="300" frameborder="0" allowtransparency="true"></iframe>
-                <iframe src="https://embed.spotify.com/?uri=spotify%3Auser%3Aqlmhuge%3Aplaylist%3A6Df19VKaShrdWrAnHinwVO"
-                        width="300" height="380" frameborder="0" allowtransparency="true"></iframe>
-            </div
         </div>
     </div>
     <div class="container">
         <div class="row">
             <div class="col-md-4"></div>
             <div class="col-md-4">
-                <iframe src="https://embed.spotify.com/?uri=spotify%3Auser%3A1261004164%3Aplaylist%3A3N0zsiDQcbQvE2xz3YIvTu"
-                        width="300" height="380" frameborder="0" allowtransparency="true"></iframe></br>
-                <input type="text" placeholder="Rename"/>
-                <button>Save</button>
+                <div class="center-me">
+                    <iframe src="https://embed.spotify.com/?uri=spotify%3Auser%3A1261004164%3Aplaylist%3A3N0zsiDQcbQvE2xz3YIvTu"
+                            width="300" height="380" frameborder="0" allowtransparency="true"></iframe>
+                    <br/>
+                    <input type="text" placeholder="Rename"/>
+                    <div>
+                        <a href="/saveNewPlaylist" th:href="@{saveNewPlaylist}" class="btn btn-primary">Save</a>
+
+                    </div>
+                </div>
             </div>
             <div class="col-md-4"></div>
 

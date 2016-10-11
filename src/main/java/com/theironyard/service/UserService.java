@@ -113,74 +113,76 @@ public class UserService {
     }
 
 
-    public ArrayList<String> getSavedTracks(Api api) throws NullPointerException {
-        Page<LibraryTrack> libraryTrackPage;
-        Track track;
-        ArrayList<String> tracks = new ArrayList<>();
-
-        try {
-            // offset initializer
-            int offset = 0;
-
-            // DO: get the tracks -- WHILE: next track is not null
-            // do {
-                // gets a Page of LibraryTracks 50 long at an ever increasing offset
-                libraryTrackPage = api.getMySavedTracks()
-                        .limit(50)
-                        .offset(offset)
-                        .build().get();
-
-                // for loop to add each track's ID to an ArrayList of Track
-                for (int x = 1; x < 50; x++) {
-                    track = libraryTrackPage.getItems().get(x).getTrack();
-                    tracks.add(track.getId());
-                }
-                // increment offset
-                offset++;
-
-            // } while (libraryTrackPage.getNext() != null);
-
-        } catch (IOException | WebApiException e) {
-            e.printStackTrace();
-        }
-
-        return tracks;
-    }
-
-    // collect albums
-    public ArrayList<String> getSavedAlbums(Api api) throws NullPointerException {
-        Page<LibraryTrack> libraryTrackPage;
-        Track track;
-        ArrayList<String> tracks = new ArrayList<>();
-
-        try {
-            // offset initializer
-            int offset = 0;
-
-            // DO: get the tracks -- WHILE: next track is not null
-            // do {
-            // gets a Page of LibraryTracks 50 long at an ever increasing offset
-            libraryTrackPage = api.getMySavedTracks()
-                    .limit(50)
-                    .offset(offset)
-                    .build().get();
-
-            // for loop to add each track's ID to an ArrayList of Track
-            for (int x = 1; x < 50; x++) {
-                track = libraryTrackPage.getItems().get(x).getTrack();
-                tracks.add(track.getId());
-            }
-            // increment offset
-            offset++;
-
-            // } while (libraryTrackPage.getNext() != null);
-
-        } catch (IOException | WebApiException e) {
-            e.printStackTrace();
-        }
-
-        return tracks;
-    }
+//    public ArrayList<String> getSavedTracks(Api api) throws NullPointerException {
+//        Page<LibraryTrack> libraryTrackPage;
+//        Track track;
+//        ArrayList<String> tracks = new ArrayList<>();
+//
+//        try {
+//            // offset initializer
+//            int offset = 0;
+//
+//            // DO: get the tracks -- WHILE: next track is not null
+//            // do {
+////            do {
+//                // gets a Page of LibraryTracks 50 long at an ever increasing offset
+//                libraryTrackPage = api.getMySavedTracks()
+//                        .limit(50)
+//                        .offset(offset)
+//                        .build().get();
+//
+//                // for loop to add each track's ID to an ArrayList of Track
+//                for (int x = 1; x < 50; x++) {
+//                    track = libraryTrackPage.getItems().get(x).getTrack();
+//                    tracks.add(track.getId());
+//                }
+//                // increment offset
+//                offset++;
+//
+//            // } while (libraryTrackPage.getNext() != null);
+//
+//        } catch (IOException | WebApiException e) {
+//            e.printStackTrace();
+//        }
+//
+//        return tracks;
+//    }
+//
+//    // collect albums
+//    public ArrayList<String> getSavedAlbums(Api api) throws NullPointerException {
+//        Page<LibraryTrack> libraryTrackPage;
+//        Track track;
+//        ArrayList<String> tracks = new ArrayList<>();
+//
+//        try {
+//            // offset initializer
+//            int offset = 0;
+//
+//            // DO: get the tracks -- WHILE: next track is not null
+//            // do {
+//            // gets a Page of LibraryTracks 50 long at an ever increasing offset
+//            libraryTrackPage = api.getMySavedTracks()
+//                    .limit(50)
+//                    .offset(offset)
+//                    .build().get();
+//
+//            // for loop to add each track's ID to an ArrayList of Track
+//            for (int x = 1; x < 50; x++) {
+//                track = libraryTrackPage.getItems().get(x).getTrack();
+//                tracks.add(track.getId());
+//            }
+//            // increment offset
+//            offset++;
+//
+//            // } while (libraryTrackPage.getNext() != null);
+////            } while (libraryTrackPage.getNext() != null);
+//
+//        } catch (IOException | WebApiException e) {
+//            e.printStackTrace();
+//        }
+//
+//        return tracks;
+//    }
 
     public Track getSavedTrack(Api api) {
         Track track = null;
@@ -209,19 +211,5 @@ public class UserService {
         return tracks;
     }
 
-    public String getTracksCurl() {
-        String country = "US";
-        Integer offset = 0;
-        String token;
-        return country;
-    }
-
-    public String getTracksCurl(String country, Integer offset, String token) {
-
-        return "curl -X GET \"https://api.spotify.com/v1/me/tracks?market=" +
-                country + "&limit=50&offset=" + offset +
-                "\" -H \"Accept: application/json\" -H \"Authorization: Bearer " +
-                token + "\"";
-    }
 
 }

@@ -3,7 +3,9 @@ package com.theironyard.controller;
 import com.theironyard.service.UserService;
 import com.wrapper.spotify.Api;
 import com.wrapper.spotify.exceptions.WebApiException;
-import com.wrapper.spotify.models.*;
+import com.wrapper.spotify.models.AuthorizationCodeCredentials;
+import com.wrapper.spotify.models.Image;
+import com.wrapper.spotify.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -12,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
@@ -44,6 +45,9 @@ public class SpotifyController {
     public String doSomething() {
         return "index";
     }
+
+    @RequestMapping(path = "/playlist")
+    public String addUrl() {return "playlist";}
 
     @RequestMapping(path = "/login")
     public String doLogin(HttpSession session) {
@@ -105,9 +109,9 @@ public class SpotifyController {
         Image image = imageData.get(0);
         String imageUrl = image.getUrl();
 
-        ArrayList<String> trackArrayList = userService.getSavedTracks(api);
+//        ArrayList<String> trackArrayList = userService.getSavedTracks(api);
 
-        model.addAttribute("trackArrayList", trackArrayList);
+//        model.addAttribute("trackArrayList", trackArrayList);
 
         model.addAttribute("imageUrl", imageUrl);
         model.addAttribute("image", image);

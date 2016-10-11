@@ -13,8 +13,8 @@ body {
     background:
         /* top, transparent grey, faked with gradient */
             linear-gradient(
-                    rgba(50, 50, 50, 0.6),
-                    rgba(50, 50, 50, 0.6)
+                    rgba(50, 50, 50, 0.8),
+                    rgba(50, 50, 50, 0.8)
             ),
                 /* bottom, image */
             url(../images/albummosaic.jpg);
@@ -71,4 +71,13 @@ text{
 .btn-primary .badge {
     color: #428bca;
     background-color: #fff
+}
+
+.circlepic {
+    border-radius: 50%;
+    border-color: #080808;
+}
+
+.center-me {
+    text-align: center;
 }

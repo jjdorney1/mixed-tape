@@ -3,7 +3,9 @@ package com.theironyard.controller;
 import com.theironyard.service.UserService;
 import com.wrapper.spotify.Api;
 import com.wrapper.spotify.exceptions.WebApiException;
-import com.wrapper.spotify.models.*;
+import com.wrapper.spotify.models.AuthorizationCodeCredentials;
+import com.wrapper.spotify.models.Image;
+import com.wrapper.spotify.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -44,6 +46,9 @@ public class SpotifyController {
     public String doSomething() {
         return "index";
     }
+
+    @RequestMapping(path = "/playlist")
+    public String addUrl() {return "playlist";}
 
     @RequestMapping(path = "/login")
     public String doLogin(HttpSession session) {
@@ -106,11 +111,24 @@ public class SpotifyController {
         // object to hold user id
         String userId;
 
+
         // image url for user
         String imageUrl = "profile_default.jpg";
 
         // list of image data
         List<Image> imageData;
+
+//        ArrayList<String> trackArrayList = userService.getSavedTracks(api);
+
+//        model.addAttribute("trackArrayList", trackArrayList);
+
+        model.addAttribute("imageUrl", imageUrl);
+        model.addAttribute("image", image);
+
+        //Track track = userService.getUserSavedTracks(api).get(1).getTrack();
+
+        //model.addAttribute("track", track);
+        //302a1bef452882483a8881e827e24d28bbda969b
 
         // creates refresh token from api
         userService.refreshToken(api);

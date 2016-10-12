@@ -80,4 +80,21 @@ text{
 
 .center-me {
     text-align: center;
+    font-size: 20px;
+}
+
+.center-header {
+    text-align: center;
+}
+.instruction-font {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    height: 400px;
+    font-size: 20px;
+    text-align: center;
+}
+
+h1 {
+    font-size: 30px;
 }

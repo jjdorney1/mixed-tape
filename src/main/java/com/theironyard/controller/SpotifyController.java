@@ -51,8 +51,9 @@ public class SpotifyController {
     public String addUrl(Model model, HttpSession session) {
         Api api = (Api) session.getAttribute("api");
         userService.refreshToken(api);
-        //model.addAttribute();
-        return "redirect:/playlist";}
+        User user = userService.getUser(api);
+        model.addAttribute("user", user);
+        return "playlist";}
 
     @RequestMapping(path = "/instructions")
     public String instructions( Model model, HttpSession session) {
@@ -105,7 +106,7 @@ public class SpotifyController {
             e.printStackTrace();
         }
 
-        return "redirect:/instructions";
+        return "redirect:/playlist";
 
     }
 

@@ -7,11 +7,14 @@
           integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
 
     <link rel="stylesheet" href="../static/css/styles.css" th:href="@{css/styles.css}"/>
+    <link rel="stylesheet" href="../static/remodal/dist/remodal.css">
+    <link rel="stylesheet" href="../static/remodal/dist/remodal-default-theme.css">
 </head>
 <body>
 <a href="playlist.html" th:href="@{playlist}"></a>
 <div class="mosaic">
     <div class="container">
+
         <div class="row">
             <div class="col-sm-4"></div>
             <div class="col-sm-4">
@@ -21,22 +24,128 @@
 
         </div>
         <div class="row">
-            <div class="col-sm-4"></div>
-            <div class="col-sm-4">
+            <div class="col-med-4"></div>
+            <div class="col-med-4">
+                <div class="center-me">
+                    <form class="email-invite">Email Invite</form>
 
+                    <div>
+                        <a class="btn btn-primary">Go!</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-med-4"></div>
+
+        </div>
+        <div class="row">
+            <div class="col-sm-4">
                 <form class="center-me" method="get" action="/client_credentials" th:action="@{client_credentials}">
                     <input type="text" name="id" placeholder="Friend's Uri here"/>
                     <div>
                         <a href="/addUrl" th:href="@{addUrl}" class="btn btn-primary">Go!</a>
+                        <a data-remodal-target="modal">Call the modal with data-remodal-id="modal"</a>
+
                     </div>
                 </form>
+                <div class="remodal" data-remodal-id="modal">
+                    <button data-remodal-action="close" class="remodal-close"></button>
+                    <a href="instructions.html" th:href="@{instructions}"></a>
+                    <div class="mosaic">
+                        <div>
+                            <div class="remodal-bg">
+
+                                <div class="container">
+                                    <div class="center-header">
+                                        <h1>Instructions</h1>
+                                    </div>
+                                    <div class="content">
+
+
+                                        <p class="center-me">After looking over this you'll need to click the button
+                                            at the bottom to shoot over to your Spotify page. It will open in a separate window so if
+                                            you forget what you read, you can easily flip to the other tab. The instructions listed here aren't
+                                            terribly difficult. If you can manage brushing your teeth on a fairly regular basis, this
+                                            should be a cake walk.</p> <br/>
+
+                                        <div class="row">
+                                            <div class="col-md-9">
+                                                <img th:src="@{images/find-user.png}"
+                                                     src="../static/images/find-user.png" height="400"
+                                                     width="700"/>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <p class="instruction-font">Choose the friend you want to compare
+                                                    with
+                                                    by clicking on their
+                                                    name.</p>
+                                            </div>
+                                        </div>
+                                        <br/>
+                                        <div class="row">
+                                            <div class="col-md-9">
+                                                <img th:src="@{images/copy-uri.png}"
+                                                     src="../static/images/copy-uri.png"
+                                                     height="400" width="700"/>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <p class="instruction-font">Copy your friends Uri by clicking the 3
+                                                    dots
+                                                    next to Following
+                                                    and then clicking Copy Spotify Uri from the dropdown.</p>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="row">
+                                            <p class="instruction-font">When you click on the Go to your profile!
+                                                you'll
+                                                be directed to your
+                                                Spotify home page in a new window. You'll do all the things you were
+                                                just instructed to do to get
+                                                get a copy of your friends Uri. Then flip back to this page to paste
+                                                your Uri in the space provided.
+                                                Once pasted, click Go to Spotify and let the fun begin.</p>
+                                        </div>
+
+                                        <div class="center-me">
+
+                                            <p>
+                                                <a onclick="return doStuff();" href="#">Go to your profile!</a>
+                                            </p>
+
+
+                                            <div>
+                                                <form>
+                                                    <input type="text" name="uri" placeholder="Friend's Uri here"/>
+
+                                                    <a href="/playlist" th:href="@{playlist}"
+                                                       class="btn btn-primary">Go!</a>
+
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4"></div>
+
+
+            </div>
+            <div class="col-sm-4"></div>
+            <div class="col-sm-4">
                 <form class="center-me" method="get" action="/client_credentials" th:action="@{client_credentials}">
                     <div class="center-me">
                         <select id="user_id" name="user_id">
                             <option>select..</option>
                             <option th:each="user: ${users}"
-                                    th:text="${user.id}"
-                                    th:src="${https://api.spotify.com/v1/users/wizzler}">
+                                    th:text="${user.getDisplayName}"
+                                    th:value="${user.getId}">
                             </option>
                         </select>
                         <div>
@@ -45,7 +154,7 @@
                     </div>
                 </form>
             </div>
-            <div class="col-sm-4"></div>
+
         </div>
         <div class="row">
             <div class="col-sm-4"></div>
@@ -98,9 +207,23 @@
         </div>
     </div>
 </div>
+
 <br/>
 
+<script th:inline="javascript">
+    function doStuff() {
 
+
+        setTimeout(function () {
+            var currentUser = /*[[${userId}]]*/ 'user';
+            window.location.href = "spotify:user:" + currentUser;
+        }, 1);
+
+        return false;
+    }
+
+</script>
+<script src="../dist/remodal.min.js"></script>
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 

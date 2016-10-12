@@ -98,3 +98,51 @@ text{
 h1 {
     font-size: 30px;
 }
+
+.popup {
+    margin: 70px auto;
+    padding: 20px;
+    background: #000000;
+    border-radius: 5px;
+    width: 10%;
+    position: relative;
+    transition: all 5s ease-in-out;
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.7);
+    transition: opacity 500ms;
+    visibility: hidden;
+    opacity: 0;
+}
+.overlay:target {
+    visibility: visible;
+    opacity: 1;
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.7);
+    transition: opacity 500ms;
+    visibility: hidden;
+    opacity: 0;
+}
+.overlay:target {
+    visibility: visible;
+    opacity: 1;
+}
+
+.popup .content {
+    max-height: 30%;
+    max-width: 30%;
+    overflow: auto;
+}

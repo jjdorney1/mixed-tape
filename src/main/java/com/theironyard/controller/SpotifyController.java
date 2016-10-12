@@ -111,7 +111,7 @@ public class SpotifyController {
         String userId = user.getId();
 
         // ALL the users tracks in their account!
-        ArrayList<String> userTracks = userService.getFinalNewMusicList(userService.getSavedTracks(api), userService.getSavedPlaylists(api, userId));
+        ArrayList<String> userTracks = userService.getAllUserMusicList(userService.getSavedTracks(api), userService.getSavedPlaylists(api, userId));
 
         int numberOfTracks = userTracks.size();
 

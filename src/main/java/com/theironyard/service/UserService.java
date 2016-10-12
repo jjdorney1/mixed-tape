@@ -275,7 +275,7 @@ public class UserService {
 
 
     // adding missing playlist tracks to the list of users saved tracks from their library
-    public ArrayList<String> getFinalNewMusicList(ArrayList<String> userSavedTracks, ArrayList<String> userPlaylistTracks) {
+    public ArrayList<String> getAllUserMusicList(ArrayList<String> userSavedTracks, ArrayList<String> userPlaylistTracks) {
 
         // iterate over the playlist object to do comparison with what songs are already present
         for (String playlistId : userPlaylistTracks) {
@@ -288,5 +288,15 @@ public class UserService {
         return userSavedTracks;
     }
 
+    public ArrayList<String> getMixedTapeList(ArrayList<String> userFullLibrary, ArrayList<String> friendFullLibrary){
 
+        ArrayList<String> newMusic = new ArrayList<>();
+
+        for (String friendTrack : friendFullLibrary) {
+            if(!userFullLibrary.contains(friendTrack)){
+                newMusic.add(friendTrack);
+            }
+        }
+        return newMusic;
+    }
 }

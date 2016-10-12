@@ -46,6 +46,7 @@ public class UserService {
             RefreshAccessTokenCredentials refresh = api.refreshAccessToken().build().get();
             api.setAccessToken(refresh.getAccessToken());
 
+            // catch exceptions
         } catch (IOException | WebApiException e) {
             e.printStackTrace();
         }
@@ -59,26 +60,85 @@ public class UserService {
         try {
             // gets the user's data
             user = api.getMe().build().get();
+            // catches exceptions
         } catch (IOException | WebApiException e) {
             e.printStackTrace();
         }
-
         // returns the user
         return user;
     }
 
+    public User getFriend(Api api, String friendId) {
+        User friend = null;
+
+        try {
+            // gets the friend's data
+            friend = api.getUser(friendId).build().get();
+            // catches exceptions
+        } catch (IOException | WebApiException e) {
+            e.printStackTrace();
+        }
+        // returns the friend
+        return friend;
+    }
+
+    // checks the entered friend ID to see if it's a uri or a username
+    public String trimFriendId(String friendUri) {
+        String friendId;
+
+        if (friendUri.contains("spotify")) {
+            // if it's the uri it will trim it
+            friendId = friendUri.substring(13);
+        } else {
+            // if it's just the username it will set it
+            friendId = friendUri;
+        }
+        // return the friend's id
+        return friendId;
+    }
+
+
+    // method to gather the user's saved tracks and return their ID #'s in an arraylist of strings
+    public ArrayList<String> getSavedTracks(Api api, String friendId) throws NullPointerException, InterruptedException {
+
+        // arraylist of tracks to return
+        ArrayList<String> tracks = new ArrayList<>();
+
+        // collections of simpleplaylists
+        Page<SimplePlaylist> friendPlaylists = new Page<>();
+        List<SimplePlaylist> friendPlaylistList = null;
+
+        try {
+            // run api to get the playlists for the user
+            friendPlaylists = api.getPlaylistsForUser(friendId).build().get();
+            friendPlaylistList = friendPlaylists.getItems();
+            // catches exceptios
+        } catch (IOException | WebApiException e) {
+            e.printStackTrace();
+        }
+
+        assert friendPlaylistList != null;
+
+        for (SimplePlaylist friendPlaylist : friendPlaylistList) {
+            String playlistId = friendPlaylist.getId();
+            String playlistOwner = friendPlaylist.getOwner().getId();
+            ArrayList<String> friendTracks = getPlaylistTracks(api, playlistOwner, playlistId);
+
+            for (String friendTrack : friendTracks) {
+                if (!tracks.contains(friendTrack)) {
+                    tracks.add(friendTrack);
+                }
+            }
+        }
+        return tracks;
+    }
 
     // method to gather the user's saved tracks and return their ID #'s in an arraylist of strings
     public ArrayList<String> getSavedTracks(Api api) throws NullPointerException, InterruptedException {
 
         // page of library tracks
         Page<LibraryTrack> libraryTrackPage;
-
-        // size of the user's library
-        int librarySize;
-
-        // track object to hold the track
-        Track track;
+        List<LibraryTrack> libraryTrackList;
 
         // arraylist of tracks to return
         ArrayList<String> tracks = new ArrayList<>();
@@ -89,25 +149,25 @@ public class UserService {
 
             // DO: go gather the tracks from the user
             do {
-
                 // gets a Page of LibraryTracks 50 long at an ever increasing offset
                 libraryTrackPage = api.getMySavedTracks()
                         .limit(50)
                         .offset(offset)
                         .build().get();
 
-                librarySize = libraryTrackPage.getTotal();
+                // creates list from paged items
+                libraryTrackList = libraryTrackPage.getItems();
 
-                // for loop to add each track's ID to an ArrayList of Track
-                for (int x = 1; x < librarySize; x++) {
-                    track = libraryTrackPage.getItems().get(x).getTrack();
-                    tracks.add(track.getId());
+                // for-each loop to add each track's ID to an ArrayList of Track
+                for (LibraryTrack libraryTrack : libraryTrackList) {
+                    tracks.add(libraryTrack.getTrack().getId());
                 }
                 // increment offset
-                offset++;
+                offset = offset + 50;
 
+                // REMOVED TEMPORARILY UNLESS NEEDED
                 // delay between searches (in milliseconds) - to keep spotify from booting us out of process
-                Thread.sleep(10);
+                // Thread.sleep(10);
 
                 // WHILE: next page of tracks is not null
             } while (libraryTrackPage.getNext() != null);
@@ -116,7 +176,6 @@ public class UserService {
         } catch (IOException | WebApiException e) {
             e.printStackTrace();
         }
-
         // returns the list of track ids
         return tracks;
     }
@@ -134,14 +193,8 @@ public class UserService {
         // list of playlists from the userId
         List<SimplePlaylist> playlists;
 
-        // track id object
-        String trackId;
-
-        // list of track ids from the playlist
-        ArrayList<String> playlistTrackIds;
-
         // list of tracks to add
-        ArrayList<String> tracksToAdd = new ArrayList<>();
+        ArrayList<String> tracksToAdd;
 
         // list of tracks to return
         ArrayList<String> tracks = new ArrayList<>();
@@ -174,9 +227,11 @@ public class UserService {
                 // sets the tracks to the searched playlist
                 tracksToAdd = getPlaylistTracks(api, uid, playlistId);
 
-                for (int x = 0; x < tracksToAdd.size(); x++) {
-                    trackId = tracksToAdd.get(x);
-                    tracks.add(tracks.size(), trackId);
+                // iterate over track arraylist to add them to the tracks object
+                for (String trackIds : tracksToAdd) {
+                    if (!tracks.contains(trackIds)) {
+                        tracks.add(trackIds);
+                    }
                 }
             }
         }
@@ -192,24 +247,24 @@ public class UserService {
 
         Page<PlaylistTrack> playlistTracksPage;
         List<PlaylistTrack> playlistTracks;
+        int offset = 0;
 
         try {
-            // created playlisttrack list to iterate over
-            playlistTracksPage = api.getPlaylistTracks(userId, playlistId).build().get();
+            do {
+                // created playlist track list to iterate over
+                playlistTracksPage = api.getPlaylistTracks(userId, playlistId)
+                        .limit(100)
+                        .offset(offset)
+                        .build().get();
+                playlistTracks = playlistTracksPage.getItems();
 
-            if (playlistTracksPage.getTotal() == 0) {
-                playlistTracksPage = api.getPlaylistTracks("spotify", playlistId).build().get();
-            }
-
-            playlistTracks = playlistTracksPage.getItems();
-            int playlistSize = playlistTracks.size();
-
-            // iterates over the list to pull out the track id
-            for (int x = 0; x < playlistSize; x++) {
-                String trackId = playlistTracks.get(x).getTrack().getId();
-                playlistTracks.get(x).getTrack().getUri();
-                tracks.add(x, trackId);
-            }
+                // iterates over the list to pull out the track id
+                for (PlaylistTrack playlistTrack : playlistTracks) {
+                    String trackId = playlistTrack.getTrack().getId();
+                    tracks.add(trackId);
+                }
+                offset = offset + 100;
+            } while (playlistTracksPage.getNext() != null);
             // exception catches
         } catch (IOException | WebApiException e) {
             e.printStackTrace();
@@ -219,23 +274,19 @@ public class UserService {
     }
 
 
-    // building this out -- work in progress
-    public ArrayList<String> getFinalNewMusicList(Api api, String userId, ArrayList<String> userSavedTracks, ArrayList<String> userPlaylistTracks) {
-        ArrayList<String> tracks = new ArrayList<>();
+    // adding missing playlist tracks to the list of users saved tracks from their library
+    public ArrayList<String> getFinalNewMusicList(ArrayList<String> userSavedTracks, ArrayList<String> userPlaylistTracks) {
 
-        int playlistTrackCounter = userPlaylistTracks.size();
-        String playlistTrackToCheck;
+        // iterate over the playlist object to do comparison with what songs are already present
+        for (String playlistId : userPlaylistTracks) {
 
-        for (int x = 0; x < playlistTrackCounter; x++) {
-            playlistTrackToCheck = userPlaylistTracks.get(x);
-
-
+            // checks against the list of user tracks that we've already obtained
+            if (!userSavedTracks.contains(playlistId)) {
+                userSavedTracks.add(userSavedTracks.size(), playlistId);
+            }
         }
-
-
-        return tracks;
+        return userSavedTracks;
     }
-
 
 
 }

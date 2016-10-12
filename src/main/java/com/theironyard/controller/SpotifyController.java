@@ -101,44 +101,33 @@ public class SpotifyController {
         // api session initialization
         Api api = (Api) session.getAttribute("api");
 
-        // list to hold the tracks from library and playlists
-        ArrayList<String> userLibraryTracks = new ArrayList<>();
-        ArrayList<String> userPlaylistTracks;
+        // creates refresh token from api
+        userService.refreshToken(api);
+
+        // gets user based on their data and adds to model
+        User user = userService.getUser(api);
+
+        // object to hold user id
+        String userId = user.getId();
+
+        // ALL the users tracks in their account!
+        ArrayList<String> userTracks = userService.getFinalNewMusicList(userService.getSavedTracks(api), userService.getSavedPlaylists(api, userId));
+
+        int numberOfTracks = userTracks.size();
+
+        model.addAttribute("numberOfTracks", numberOfTracks);
+
+        model.addAttribute("user", user);
+        model.addAttribute("userTracks", userTracks);
 
         // object to hold image data
         Image image = new Image();
-
-        // object to hold user id
-        String userId;
-
 
         // image url for user
         String imageUrl = "profile_default.jpg";
 
         // list of image data
         List<Image> imageData;
-
-//        ArrayList<String> trackArrayList = userService.getSavedTracks(api);
-
-//        model.addAttribute("trackArrayList", trackArrayList);
-
-        model.addAttribute("imageUrl", imageUrl);
-        model.addAttribute("image", image);
-
-        //Track track = userService.getUserSavedTracks(api).get(1).getTrack();
-
-        //model.addAttribute("track", track);
-        //302a1bef452882483a8881e827e24d28bbda969b
-
-        // creates refresh token from api
-        userService.refreshToken(api);
-
-        // gets user based on their data and adds to model
-        User user = userService.getUser(api);
-        model.addAttribute("user", user);
-
-        // sets user id based on the user logged in
-        userId = user.getId();
 
         // gets the user's image if they have one
         if(userService.getUser(api).getImages().size() != 0) {
@@ -152,27 +141,15 @@ public class SpotifyController {
         model.addAttribute("imageUrl", imageUrl);
         model.addAttribute("image", image);
 
-        // gets the user's saved tracks from their library
-        try {
-            // if they have some saved tracks in their library
-            if(api.getMySavedTracks().build().get().getItems().size() != 0) {
+        String uid = userService.trimFriendId("spotify:user:1254755551");
+        model.addAttribute("uid", uid);
 
-                // calls get tracks method and adds them to the model
-                userLibraryTracks = userService.getSavedTracks(api);
-                model.addAttribute("userLibraryTracks", userLibraryTracks);
-            } else {
+        userService.refreshToken(api);
 
-                // no saved tracks in library, adds none value to list so it's not empty
-                userLibraryTracks.add("NONE");
-            }
-            // catch exceptions
-        } catch (IOException | WebApiException e) {
-            e.printStackTrace();
-        }
-
-        // gets the user's saved tracks from their playlists
-        userPlaylistTracks = userService.getSavedPlaylists(api, userId);
-        model.addAttribute("userPlaylistTracks", userPlaylistTracks);
+        User friend = userService.getFriend(api, "1217627939");
+        ArrayList<String> friendTracks = userService.getSavedTracks(api, "1217627939");
+        model.addAttribute("friend", friend);
+        model.addAttribute("friendTracks", friendTracks);
 
         // return to page
         return "test";

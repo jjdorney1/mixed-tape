@@ -36,10 +36,21 @@
     <div>External URL: <div th:text="${user.getExternalUrls()}">Open</div></div><br/>
     <div>Get track: <div th:text="${user.getDisplayName()}">Open</div></div><br/>
 
+    <br/>
 
-    <div >
-        <ol th:each="track : ${userPlaylistTracks}" start="1">
-            <a th:href="'https://open.spotify.com/track/' + ${track}" href="https://open.spotify.com/track/3mAyjnYIWLeDixdNO6Joz6"><li th:text="${track}">Song ID</li></a>
+    <div>Number of tracks:</div>
+    <div th:text="${numberOfTracks}">Number of Tracks</div>
+
+    <br/>
+
+    <div>UID:</div>
+    <div th:text="${uid}">uid #</div>
+
+    <br/>
+
+    <div>
+        <ol>
+            <li th:each="track : ${friendTracks}" th:text="${track}">Song ID</li>
         </ol>
     </div>
     <div>

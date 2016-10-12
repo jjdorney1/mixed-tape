@@ -77,21 +77,21 @@ public class SpotifyController {
     }
 
     @RequestMapping(path = "/callback")
-    public String doCallback(String code, String state, HttpSession session) {
+    public String doCallback(String code, HttpSession session) {
 
         Api api = (Api) session.getAttribute("api");
         /* Make a token request. Asynchronous requests are made with the .getAsync method and synchronous requests
          * are made with the .get method. This holds for all type of requests. */
         try {
             AuthorizationCodeCredentials credentials = api.authorizationCodeGrant(code).build().get();
-
+            // collects access token and refresh token
             api.setAccessToken(credentials.getAccessToken());
             api.setRefreshToken(credentials.getRefreshToken());
-
+            // catches exceptions
         } catch (IOException | WebApiException e) {
             e.printStackTrace();
         }
-
+        // redirect page
         return "redirect:/test";
     }
 
@@ -106,46 +106,47 @@ public class SpotifyController {
 
         // gets user based on their data and adds to model
         User user = userService.getUser(api);
+        model.addAttribute("user", user);
 
         // object to hold user id
         String userId = user.getId();
 
-        // ALL the users tracks in their account!
+        // ALL the users tracks in their account and adds to model
         ArrayList<String> userTracks = userService.getAllUserMusicList(userService.getSavedTracks(api), userService.getSavedPlaylists(api, userId));
-
-        int numberOfTracks = userTracks.size();
-
-        model.addAttribute("numberOfTracks", numberOfTracks);
-
-        model.addAttribute("user", user);
         model.addAttribute("userTracks", userTracks);
 
-        // object to hold image data
-        Image image = new Image();
-
-        // image url for user
-        String imageUrl = "profile_default.jpg";
+        // collects the number and adds to model
+        int numberOfTracks = userTracks.size();
+        model.addAttribute("numberOfTracks", numberOfTracks);
 
         // list of image data
-        List<Image> imageData;
+        List<Image> imageData = userService.getUser(api).getImages();
+        // object to hold image data
+        Image image = new Image();
+        // image url for user
+        String imageUrl;
 
-        // gets the user's image if they have one
-        if(userService.getUser(api).getImages().size() != 0) {
-            // user has an image
-            // sets image to their profile image
-            imageData = userService.getUser(api).getImages();
+        if(imageData.size() != 0) {
+            // user has an image & sets image to their profile image
             image = imageData.get(0);
             imageUrl = image.getUrl();
+        } else {
+            // sets default when no image
+            imageUrl = "profile_default.jpg";
         }
+
         // adds the image data to the model
         model.addAttribute("imageUrl", imageUrl);
         model.addAttribute("image", image);
 
+        // gets the uid for the friend
         String uid = userService.trimFriendId("spotify:user:1254755551");
         model.addAttribute("uid", uid);
 
+        // refresh connection to the spotify api
         userService.refreshToken(api);
 
+        // get friend user data [static]
         User friend = userService.getFriend(api, "1217627939");
         ArrayList<String> friendTracks = userService.getSavedTracks(api, "1217627939");
         model.addAttribute("friend", friend);

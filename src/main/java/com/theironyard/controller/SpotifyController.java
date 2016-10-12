@@ -48,7 +48,20 @@ public class SpotifyController {
     }
 
     @RequestMapping(path = "/playlist")
-    public String addUrl() {return "playlist";}
+    public String addUrl(Model model, HttpSession session) {
+        Api api = (Api) session.getAttribute("api");
+        userService.refreshToken(api);
+        //model.addAttribute();
+        return "redirect:/playlist";}
+
+    @RequestMapping(path = "/instructions")
+    public String instructions( Model model, HttpSession session) {
+        Api api = (Api) session.getAttribute("api");
+        userService.refreshToken(api);
+        User user = userService.getUser(api);
+        String userId = user.getId();
+        model.addAttribute("userId", userId);
+        return "instructions";}
 
     @RequestMapping(path = "/login")
     public String doLogin(HttpSession session) {
@@ -91,8 +104,9 @@ public class SpotifyController {
         } catch (IOException | WebApiException e) {
             e.printStackTrace();
         }
-        // redirect page
-        return "redirect:/test";
+
+        return "redirect:/instructions";
+
     }
 
     @RequestMapping(path="/test")

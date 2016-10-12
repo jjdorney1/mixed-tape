@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Example of the Authorization Code flow with Spotify</title>
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
+
+
+    <link rel="stylesheet" href="../static/css/styles.css" th:href="@{css/styles.css}"/>
+    <script th:inline="javascript">
+        function doStuff(){
+
+
+            setTimeout(function() {
+                var currentUser = /*[[${userId}]]*/ 'user';
+                window.location.href = "spotify:user:" + currentUser;
+            }, 1);
+
+            return false;
+        }
+
+        /*$(function(){
+            $(".spotify").click(function(){
+
+
+
+            });
+        });*/
+    </script>
+</head>
+<body>
+<a href="instructions.html" th:href="@{instructions}"></a>
+<div class="mosaic">
+    <div>
+
+        <div class="container">
+            <div class="center-header">
+                <h1>Instructions</h1>
+            </div>
+            <p class="center-me">After looking over this you'll need to click the button at the bottom to
+                shoot over to your Spotify page. It will open in a separate window so if yu forget what you read, you
+                can
+                easily flip to the other tab. The instructions listed here aren't terribly difficult.
+                If you can manage brushing your teeth on a fairly regular basis, this should be a cake walk.</p> <br/>
+
+            <div class="row">
+                <div class="col-md-9">
+                    <img th:src="@{images/find-user.png}" src="../static/images/find-user.png" height="400"
+                         width="700"/>
+                </div>
+                <div class="col-md-3">
+                    <p class="instruction-font">Choose the friend you want to compare with by clicking on their
+                        name.</p>
+                </div>
+            </div>
+            <br/>
+            <div class="row">
+                <div class="col-md-9">
+                    <img th:src="@{images/copy-uri.png}" src="../static/images/copy-uri.png" height="400" width="700"/>
+                </div>
+                <div class="col-md-3">
+                    <p class="instruction-font">Copy your friends Uri by clicking the 3 dots next to Following
+                        and then clicking Copy Spotify Uri from the dropdown.</p>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <p class="instruction-font">When you click on the Go to your profile! you'll be directed to your
+                    Spotify home page in a new window. You'll do all the things you were just instructed to do to get
+                    get a copy of your friends Uri. Then flip back to this page to paste your Uri in the space provided.
+                    Once pasted, click Go to Spotify and let the fun begin.</p>
+            </div>
+
+            <div class="center-me">
+
+                <p>
+                    <a onclick="return doStuff();" href="#">Go to your profile!</a>
+                </p>
+
+
+
+                <div>
+                    <form>
+                        <input type="text" name="uri" placeholder="Friend's Uri here"/>
+
+                        <a href="addUrl" th:href="@{addUrl}" class="btn btn-primary">Go!</a>
+
+                    </form>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+        crossorigin="anonymous"></script>
+</body>
+</html>

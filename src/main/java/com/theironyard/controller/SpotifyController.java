@@ -47,7 +47,7 @@ public class SpotifyController {
         return "index";
     }
 
-    @RequestMapping(path = "/playlist")
+    @RequestMapping(path = "/playlist2")
     public String addUrl(Model model, HttpSession session) {
         Api api = (Api) session.getAttribute("api");
         userService.refreshToken(api);
@@ -55,13 +55,32 @@ public class SpotifyController {
         model.addAttribute("user", user);
         return "playlist";}
 
-//    @RequestMapping(path = "playlist")
-//    public String getImage(Model model, HttpSession session) {
-//        Api api = (Api) session.getAttribute("api");
-//        userService.refreshToken(api);
-//        return "playlist";
-//
-//    }
+    @RequestMapping(path = "/playlist")
+    public String getImage(Model model, HttpSession session) {
+        Api api = (Api) session.getAttribute("api");
+        userService.refreshToken(api);
+        // list of image data
+        List<Image> imageData = userService.getUser(api).getImages();
+        // object to hold image data
+        Image image = new Image();
+        // image url for user
+        String imageUrl;
+
+        if(imageData.size() != 0) {
+            // user has an image & sets image to their profile image
+            image = imageData.get(0);
+            imageUrl = image.getUrl();
+        } else {
+            // sets default when no image
+            imageUrl = "profile_default.jpg";
+        }
+        // adds the image data to the model
+        model.addAttribute("imageUrl", imageUrl);
+        model.addAttribute("image", image);
+        User user = userService.getUser(api);
+        model.addAttribute("user", user);
+        return "playlist";
+    }
 
     @RequestMapping(path = "/instructions")
     public String instructions( Model model, HttpSession session) {

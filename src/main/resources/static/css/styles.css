@@ -85,6 +85,8 @@ text{
 
 .center-header {
     text-align: center;
+    font-size: 30px;
+
 }
 .instruction-font {
     display: flex;
@@ -145,4 +147,12 @@ h1 {
     max-height: 30%;
     max-width: 30%;
     overflow: auto;
+}
+
+.modal-container {
+    width: 100%;
+}
+
+.remodal {
+    background: rgba(0,0,0,.6);
 }

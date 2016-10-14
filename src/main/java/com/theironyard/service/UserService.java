@@ -68,6 +68,19 @@ public class UserService {
         return user;
     }
 
+    public User getImage(Api api, String imageUri) {
+        User image = null;
+
+        try {
+            //get user's image
+            image = api.getUser(imageUri).build().get();
+            //catch exceptions
+        } catch (IOException | WebApiException e) {
+            e.printStackTrace();
+        }
+        return image;
+    }
+
     public User getFriend(Api api, String friendId) {
         User friend = null;
 

@@ -55,6 +55,14 @@ public class SpotifyController {
         model.addAttribute("user", user);
         return "playlist";}
 
+//    @RequestMapping(path = "playlist")
+//    public String getImage(Model model, HttpSession session) {
+//        Api api = (Api) session.getAttribute("api");
+//        userService.refreshToken(api);
+//        return "playlist";
+//
+//    }
+
     @RequestMapping(path = "/instructions")
     public String instructions( Model model, HttpSession session) {
         Api api = (Api) session.getAttribute("api");

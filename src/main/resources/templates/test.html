@@ -26,7 +26,7 @@
 <!--/*@thymesVar id="service" type="com.theironyard.service.UserService"*/-->
 
     <div>Name:<div th:text="${user.getDisplayName()}">Fred</div></div><br/>
-    <div>Image:<img th:text="${image.getUrl()}" /></div><br/>
+    <div>Image:<img th:src="${imageUrl()}" /></div><br/>
     <div>ID: <div th:text="${user.getId()}">404</div></div><br/>
     <div>Image: <div th:text="${user.getImages()}">Image?</div></div><br/>
     <div>Followers: <div th:text="${user.getFollowers()}">4</div></div><br/>
@@ -45,6 +45,11 @@
 
     <div>UID:</div>
     <div th:text="${uid}">uid #</div>
+
+    <br/>
+
+    <div>New Playlist ID:</div>
+    <div th:text="${newPlaylistId}">playlist #</div>
 
     <br/>
 

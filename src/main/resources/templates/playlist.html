@@ -52,161 +52,161 @@
                     </div>
                 </form>
 
-            <div class="remodal-bg">
-                <div class="remodal" data-remodal-id="modal">
+                <div class="remodal-bg">
+                    <div class="remodal" data-remodal-id="modal">
 
-                    <button data-remodal-action="close" class="remodal-close">close</button>
-                    <a href="instructions.html" th:href="@{instructions}"></a>
-                    <div class="modal-container">
-                        <div class="center-header">
-                            <h1>Instructions</h1>
-                            <div class="content">   
-                                <p class="center-me">After looking over this you'll
-                                    need to click the button  at the bottom to shoot over to your Spotify
-                                    page. It will open in a separate window so if  you forget what you read,
-                                    you
-                                    can easily flip to the other tab. The instructions listed here aren't 
-                                    terribly difficult. If you can manage brushing your teeth on a fairly
-                                    regular
-                                    basis, this  should be a cake walk.</p> 
-                            </div>
+                        <button data-remodal-action="close" class="remodal-close">close</button>
+                        <a href="instructions.html" th:href="@{instructions}"></a>
+                        <div class="modal-container">
+                            <div class="center-header">
+                                <h1>Instructions</h1>
+                                <div class="content">   
+                                    <p class="center-me">After looking over this you'll
+                                        need to click the button  at the bottom to shoot over to your Spotify
+                                        page. It will open in a separate window so if  you forget what you read,
+                                        you
+                                        can easily flip to the other tab. The instructions listed here aren't 
+                                        terribly difficult. If you can manage brushing your teeth on a fairly
+                                        regular
+                                        basis, this  should be a cake walk.</p> 
+                                </div>
 
-                            <div class="row"> 
-                                <div class="col-md-9">
-                                    <img th:src="@{images/find-user.png}"
-                                         src="../static/images/find-user.png" height="100%"
-                                         width="100%"/>
+                                <div class="row"> 
+                                    <div class="col-md-9">
+                                        <img th:src="@{images/find-user.png}"
+                                             src="../static/images/find-user.png" height="100%"
+                                             width="100%"/>
+                                    </div>
+                                    <div class="col-md-3"> 
+                                        <p class="instruction-font">Choose the friend you want to compare  with 
+                                            by clicking on their  name.</p> 
+                                    </div>
                                 </div>
-                                <div class="col-md-3"> 
-                                    <p class="instruction-font">Choose the friend you want to compare  with 
-                                        by clicking on their  name.</p> 
-                                </div>
-                            </div>
-                            <div class="row"> 
-                                <div class="col-md-9">
-                                    <img th:src="@{images/copy-uri.png}"
-                                         src="../static/images/copy-uri.png"
-                                         height="100%" width="100%"/>
+                                <div class="row"> 
+                                    <div class="col-md-9">
+                                        <img th:src="@{images/copy-uri.png}"
+                                             src="../static/images/copy-uri.png"
+                                             height="100%" width="100%"/>
+                                    </div>
+                                     
+                                    <div class="col-md-3">  <p class="instruction-font">Copy your friends Uri by
+                                        clicking the 3  dots  next to Following  and then clicking Copy Spotify
+                                        Uri from the dropdown.</p> 
+                                    </div>
+                                     
                                 </div>
                                  
-                                <div class="col-md-3">  <p class="instruction-font">Copy your friends Uri by
-                                    clicking the 3  dots  next to Following  and then clicking Copy Spotify
-                                    Uri from the dropdown.</p> 
+                                <div class="row"> 
+                                    <p class="instruction-font">When you click on the Go to your
+                                        profile!  you'll  be directed to your  Spotify home page in a new
+                                        window.
+                                        You'll do all the things you were  just instructed to do to get  get a
+                                        copy
+                                        of your friends Uri. Then flip back to this page to paste  your Uri in
+                                        the
+                                        space provided.  Once pasted, click Go to Spotify and let the fun
+                                        begin.</p>
+                                     
+                                </div>
+                                <div class="center-me">   <p>  <a onclick="return doStuff();" href="#">Go to
+                                    your profile!</a>  </p>   
+
                                 </div>
                                  
                             </div>
-                             
-                            <div class="row"> 
-                                <p class="instruction-font">When you click on the Go to your
-                                    profile!  you'll  be directed to your  Spotify home page in a new
-                                    window.
-                                    You'll do all the things you were  just instructed to do to get  get a
-                                    copy
-                                    of your friends Uri. Then flip back to this page to paste  your Uri in
-                                    the
-                                    space provided.  Once pasted, click Go to Spotify and let the fun
-                                    begin.</p>
-                                 
-                            </div>
-                            <div class="center-me">   <p>  <a onclick="return doStuff();" href="#">Go to
-                                your profile!</a>  </p>   
-
-                            </div>
-                             
                         </div>
                     </div>
                 </div>
-                </div>
             </div>
 
 
 
-        <div class="col-sm-4 col-sm-offset-4">
+            <div class="col-sm-4 col-sm-offset-4">
 
-            <form class="center-me" method="get" action="/client_credentials"
-                  th:action="@{client_credentials}">
-                <div class="center-me">
-                    <select id="user_id" name="user_id">
-                        <option>select..</option>
-                        <option th:each="user: ${users}"
-                                th:text="${user.getDisplayName}"
-                                th:value="${user.getId}">
-                        </option>
-                    </select>
-                    <div>
-                        <a href="/chooseUrl" th:href="@{chooseUrl}" class="btn btn-primary">Go!</a>
+                <form class="center-me" method="get" action="/client_credentials"
+                      th:action="@{client_credentials}">
+                    <div class="center-me">
+                        <select id="user_id" name="user_id">
+                            <option>select..</option>
+                            <option th:each="user: ${users}"
+                                    th:text="${user.getDisplayName}"
+                                    th:value="${user.getId}">
+                            </option>
+                        </select>
+                        <div>
+                            <a href="/chooseUrl" th:href="@{chooseUrl}" class="btn btn-primary">Go!</a>
+                        </div>
                     </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="center-me">
+                    <iframe class="circlepic"
+                            src="https://api.spotify.com/v1/users/{user_id}"
+                            th:src="@{https://api.spotify.com/v1/users/{user_id}}"
+                            width="200" height="200" frameborder="0" allowtransparency="true"></iframe>
+                    <p>All Your Music</p>
+                    <iframe src="https://embed.spotify.com/?uri=spotify%3Auser%3A1230303078%3Aplaylist%3A2lrzazFNgZKFSeno32xSvK"
+                            width="300" height="380" frameborder="0" allowtransparency="true"></iframe>
                 </div>
-            </form>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-sm-4">
-            <div class="center-me">
-                <iframe class="circlepic"
-                        src="https://api.spotify.com/v1/users/{user_id}"
-                        th:src="@{https://api.spotify.com/v1/users/{user_id}}"
-                        width="200" height="200" frameborder="0" allowtransparency="true"></iframe>
-                <p>All Your Music</p>
-                <iframe src="https://embed.spotify.com/?uri=spotify%3Auser%3A1230303078%3Aplaylist%3A2lrzazFNgZKFSeno32xSvK"
-                        width="300" height="380" frameborder="0" allowtransparency="true"></iframe>
             </div>
-        </div>
-        <div class="col-sm-4">
-            <div class="center-me">
-                <iframe class="circlepic"
-                        src="https://api.spotify.com/v1/users/{user_id}"
-                        th:src="@{https://api.spotify.com/v1/users/{user_id}}"
-                        width="150" height="150" frameborder="0" allowtransparency="true"></iframe>
-                <br/>
-                <iframe class="circlepic"
-                        src="https://api.spotify.com/v1/users/{user_id}"
-                        th:src="@{https://api.spotify.com/v1/users/{user_id}}"
-                        width="150" height="150" frameborder="0" allowtransparency="true"></iframe>
-                <p>Common Playlist</p>
-                <iframe src="https://embed.spotify.com/?uri=spotify%3Auser%3A1230303078%3Aplaylist%3A2lOi2XOCTPwar2rluxeacr"
-                        width="300" height="380" frameborder="0" allowtransparency="true"></iframe>
-                <br/>
-                <input type="text" placeholder="Rename"/>
-                <a href="/saveNewPlaylist" th:href="@{saveNewPlaylist}" class="btn btn-primary">Save</a>
+            <div class="col-sm-4">
+                <div class="center-me">
+                    <iframe class="circlepic"
+                            src="https://api.spotify.com/v1/users/{user_id}"
+                            th:src="@{https://api.spotify.com/v1/users/{user_id}}"
+                            width="150" height="150" frameborder="0" allowtransparency="true"></iframe>
+                    <br/>
+                    <iframe class="circlepic"
+                            src="https://api.spotify.com/v1/users/{user_id}"
+                            th:src="@{https://api.spotify.com/v1/users/{user_id}}"
+                            width="150" height="150" frameborder="0" allowtransparency="true"></iframe>
+                    <p>Common Playlist</p>
+                    <iframe src="https://embed.spotify.com/?uri=spotify%3Auser%3A1230303078%3Aplaylist%3A2lOi2XOCTPwar2rluxeacr"
+                            width="300" height="380" frameborder="0" allowtransparency="true"></iframe>
+                    <br/>
+                    <input type="text" placeholder="Rename"/>
+                    <a href="/saveNewPlaylist" th:href="@{saveNewPlaylist}" class="btn btn-primary">Save</a>
 
 
+                </div>
             </div>
-        </div>
-        <div class="col-sm-4">
-            <div class="center-me">
-                <div></div>
-                <iframe class="circlepic"
-                        src="https://api.spotify.com/v1/users/{user_id}"
-                        th:src="@{https://api.spotify.com/v1/users/{user_id}}"
-                        width="200" height="200" frameborder="0" allowtransparency="true"></iframe>
-                <p>Friends Public Music</p>
-                <iframe src="https://embed.spotify.com/?uri=spotify%3Auser%3A1230303078%3Aplaylist%3A5CxpQYFQxM3X5hTUrgTStn"
-                        width="300" height="380" frameborder="0" allowtransparency="true"></iframe>
+            <div class="col-sm-4">
+                <div class="center-me">
+                    <div></div>
+                    <iframe class="circlepic"
+                            src="https://api.spotify.com/v1/users/{user_id}"
+                            th:src="@{https://api.spotify.com/v1/users/{user_id}}"
+                            width="200" height="200" frameborder="0" allowtransparency="true"></iframe>
+                    <p>Friends Public Music</p>
+                    <iframe src="https://embed.spotify.com/?uri=spotify%3Auser%3A1230303078%3Aplaylist%3A5CxpQYFQxM3X5hTUrgTStn"
+                            width="300" height="380" frameborder="0" allowtransparency="true"></iframe>
+                </div>
             </div>
         </div>
     </div>
-</div>
-<br/>
-<div class="container">
-    <div class="row">
-        <div class="col-md-4"></div>
-        <div class="col-md-4">
-            <div class="center-me">
-                <p>New Playlist</p>
-                <iframe src="https://embed.spotify.com/?uri=spotify%3Auser%3A1261004164%3Aplaylist%3A3N0zsiDQcbQvE2xz3YIvTu"
-                        width="300" height="380" frameborder="0" allowtransparency="true"></iframe>
-                <br/>
-                <input type="text" placeholder="Rename"/>
-                <a href="/saveNewPlaylist" th:href="@{saveNewPlaylist}" class="btn btn-primary">Save</a>
+    <br/>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4"></div>
+            <div class="col-md-4">
+                <div class="center-me">
+                    <p>New Playlist</p>
+                    <iframe src="https://embed.spotify.com/?uri=spotify%3Auser%3A1261004164%3Aplaylist%3A3N0zsiDQcbQvE2xz3YIvTu"
+                            width="300" height="380" frameborder="0" allowtransparency="true"></iframe>
+                    <br/>
+                    <input type="text" placeholder="Rename"/>
+                    <a href="/saveNewPlaylist" th:href="@{saveNewPlaylist}" class="btn btn-primary">Save</a>
 
+                </div>
             </div>
-        </div>
-        <div class="col-md-4"></div>
+            <div class="col-md-4"></div>
 
+        </div>
     </div>
-</div>
 </div>
 
 <br/>

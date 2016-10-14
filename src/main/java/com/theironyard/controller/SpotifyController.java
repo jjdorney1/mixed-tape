@@ -52,8 +52,11 @@ public class SpotifyController {
         Api api = (Api) session.getAttribute("api");
         userService.refreshToken(api);
         User user = userService.getUser(api);
+        String userId = user.getId();
         model.addAttribute("user", user);
-        return "playlist";}
+        model.addAttribute("userId", userId);
+        return "playlist";
+    }
 
 //    @RequestMapping(path = "playlist")
 //    public String getImage(Model model, HttpSession session) {
@@ -158,9 +161,10 @@ public class SpotifyController {
             imageUrl = "profile_default.jpg";
         }
 
+        imageUrl = userService.getUserImageUrl(user);
+
         // adds the image data to the model
         model.addAttribute("imageUrl", imageUrl);
-        model.addAttribute("image", image);
 
         // gets the uid for the friend
         String uid = userService.trimFriendId("spotify:user:1254755551");
@@ -170,10 +174,18 @@ public class SpotifyController {
         userService.refreshToken(api);
 
         // get friend user data [static]
-        User friend = userService.getFriend(api, "1217627939");
-        ArrayList<String> friendTracks = userService.getSavedTracks(api, "1217627939");
+        User friend = userService.getFriend(api, "craaazytaco");
+        ArrayList<String> friendTracks = userService.getSavedTracks(api, "craaazytaco");
         model.addAttribute("friend", friend);
         model.addAttribute("friendTracks", friendTracks);
+
+        userService.refreshToken(api);
+
+        // method creates new playlist and returns the playlist id to the model
+        String newPlaylistId = userService.createNewTrackPlaylist(api, user, friend, userService.getMixedTapeList(userTracks, friendTracks));
+        model.addAttribute("newPlaylistId", newPlaylistId);
+
+
 
         // return to page
         return "test";

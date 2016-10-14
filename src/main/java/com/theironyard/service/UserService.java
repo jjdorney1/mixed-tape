@@ -3,12 +3,14 @@ package com.theironyard.service;
 import com.theironyard.repository.*;
 import com.wrapper.spotify.Api;
 import com.wrapper.spotify.exceptions.WebApiException;
+import com.wrapper.spotify.methods.PlaylistCreationRequest;
 import com.wrapper.spotify.models.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -301,15 +303,59 @@ public class UserService {
         return userSavedTracks;
     }
 
-    public ArrayList<String> getMixedTapeList(ArrayList<String> userFullLibrary, ArrayList<String> friendFullLibrary){
+    // method that takes all the differences between two libraries and gets the resulting different songs
+    public ArrayList<String> getMixedTapeList(ArrayList<String> userFullLibrary, ArrayList<String> friendFullLibrary) {
 
         ArrayList<String> newMusic = new ArrayList<>();
 
         for (String friendTrack : friendFullLibrary) {
-            if(!userFullLibrary.contains(friendTrack)){
+            if (!userFullLibrary.contains(friendTrack)) {
                 newMusic.add(friendTrack);
             }
         }
         return newMusic;
+    }
+
+    public String createNewTrackPlaylist(Api api, User user, User friend, ArrayList<String> newMusic) throws InterruptedException {
+
+        // setup objects
+        Date date = new Date();
+        String userId = user.getId();
+        String newPlaylistId = null;
+
+        Playlist newPlaylist;
+
+        // creates new playlist request
+        PlaylistCreationRequest request = api.createPlaylist(userId, "MixedTape")
+                .publicAccess(true)
+                .build();
+
+        try {
+            // gets the new playlist and the id from it
+            newPlaylist = request.get();
+            newPlaylistId = newPlaylist.getId();
+        } catch (IOException | WebApiException e) {
+            e.printStackTrace();
+        }
+
+        Thread.sleep(500);
+
+        // adds tracks to the new playlist
+        api.addTracksToPlaylist(userId, newPlaylistId, newMusic);
+        return newPlaylistId;
+    }
+
+    public String getUserImageUrl(User user){
+        List<Image> imageList = user.getImages();
+        String imageUrl;
+
+        if(imageList.size() != 0) {
+            imageUrl = user.getImages().get(0).getUrl();
+        } else {
+            imageUrl = "";
+        }
+
+
+        return imageUrl;
     }
 }

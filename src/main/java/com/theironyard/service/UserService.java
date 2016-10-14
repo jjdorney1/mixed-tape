@@ -3,7 +3,9 @@ package com.theironyard.service;
 import com.theironyard.repository.*;
 import com.wrapper.spotify.Api;
 import com.wrapper.spotify.exceptions.WebApiException;
+import com.wrapper.spotify.methods.AddTrackToPlaylistRequest;
 import com.wrapper.spotify.methods.PlaylistCreationRequest;
+import com.wrapper.spotify.methods.PlaylistRequest;
 import com.wrapper.spotify.models.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -334,14 +336,13 @@ public class UserService {
             // gets the new playlist and the id from it
             newPlaylist = request.get();
             newPlaylistId = newPlaylist.getId();
+
+            // adds tracks to the new playlist
+            addingTracksToPlaylist(api, userId, newPlaylistId, newMusic);
         } catch (IOException | WebApiException e) {
             e.printStackTrace();
         }
-
-        Thread.sleep(500);
-
-        // adds tracks to the new playlist
-        api.addTracksToPlaylist(userId, newPlaylistId, newMusic);
+        // Thread.sleep(1000);
         return newPlaylistId;
     }
 
@@ -354,8 +355,11 @@ public class UserService {
         } else {
             imageUrl = "";
         }
-
-
         return imageUrl;
+    }
+
+    public void addingTracksToPlaylist(Api api, String userId, String playlistId, ArrayList<String> tracksToAdd){
+        refreshToken(api);
+        api.addTracksToPlaylist(userId, playlistId, tracksToAdd);
     }
 }

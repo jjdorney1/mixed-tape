@@ -15,20 +15,24 @@
 <body>
 <a href="playlist.html" th:href="@{playlist}"></a>
 <div class="mosaic">
+
     <div class="container">
 
         <div class="row">
-            <div class="col-sm-4"></div>
+            <div class="col-sm-4">
+            </div>
             <div class="col-sm-4">
                 <h1 class="center-header">Mixed Tape</h1>
             </div>
             <div class="col-sm-4">
+            </div>
+        </div>
+
+        <div class="row">
+
+            <div class="md">
 
             </div>
-
-        </div>
-        <div class="row">
-            <div class="md"></div>
             <div class="md">
                 <div class="center-me">
                     <form class="email-invite">Email Invite</form>
@@ -38,16 +42,20 @@
                     </div>
                 </div>
             </div>
-            <div class="md"></div>
+            <div class="md">
+
+            </div>
 
         </div>
+
         <div class="row">
             <div class="col-sm-4">
                 <form class="center-me" method="get" action="/client_credentials" th:action="@{client_credentials}">
-                    <input type="text" name="id" placeholder="Friend's Uri here"/>
+                    <input type="text" name="id" placeholder="Friend's Uri here" th:value="${search.uri}"/>
                     <a href="#modal">?</a>
                     <div>
-                        <a href="/addUrl" th:href="@{addUrl}" class="btn btn-primary">Go!</a>
+                        <button class="btn btn-primary" type="submit" id="search" name="action" value="search">Go!</button>
+                        <!--<a href="/addUrl" th:href="@{addUrl}" class="btn btn-primary">Go!</a>-->
 
                     </div>
                 </form>
@@ -141,7 +149,7 @@
             </div>
         </div>
 
-    <div class="row">
+        <div class="row">
         <div class="col-sm-4">
             <div class="center-me">
                 <iframe class="circlepic"
@@ -152,6 +160,7 @@
                 <iframe src="https://embed.spotify.com/?uri=spotify%3Auser%3A1230303078%3Aplaylist%3A2lrzazFNgZKFSeno32xSvK"
                         width="300" height="380" frameborder="0" allowtransparency="true"></iframe>
 
+            </div>
             </div>
             <div class="col-sm-4">
                 <div class="center-me">
@@ -188,7 +197,9 @@
             </div>
         </div>
     </div>
-    <br/>
+
+        <br/>
+
     <div class="container">
         <div class="row">
             <div class="col-md-4"></div>
@@ -207,6 +218,7 @@
 
         </div>
     </div>
+
 </div>
 
 <br/>

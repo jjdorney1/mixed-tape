@@ -5,6 +5,7 @@ import com.wrapper.spotify.Api;
 import com.wrapper.spotify.exceptions.WebApiException;
 import com.wrapper.spotify.models.AuthorizationCodeCredentials;
 import com.wrapper.spotify.models.Image;
+import com.wrapper.spotify.models.Playlist;
 import com.wrapper.spotify.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -155,7 +156,7 @@ public class SpotifyController {
 
         // object to hold user id
         String userId = user.getId();
-
+/*
         // ALL the users tracks in their account and adds to model
         ArrayList<String> userTracks = userService.getAllUserMusicList(userService.getSavedTracks(api), userService.getSavedPlaylists(api, userId));
         model.addAttribute("userTracks", userTracks);
@@ -164,30 +165,12 @@ public class SpotifyController {
         int numberOfTracks = userTracks.size();
         model.addAttribute("numberOfTracks", numberOfTracks);
 
-        // list of image data
-        List<Image> imageData = userService.getUser(api).getImages();
-        // object to hold image data
-        Image image = new Image();
         // image url for user
         String imageUrl;
-
-        if(imageData.size() != 0) {
-            // user has an image & sets image to their profile image
-            image = imageData.get(0);
-            imageUrl = image.getUrl();
-        } else {
-            // sets default when no image
-            imageUrl = "profile_default.jpg";
-        }
-
         imageUrl = userService.getUserImageUrl(user);
 
         // adds the image data to the model
         model.addAttribute("imageUrl", imageUrl);
-
-        // gets the uid for the friend
-        String uid = userService.trimFriendId("spotify:user:1254755551");
-        model.addAttribute("uid", uid);
 
         // refresh connection to the spotify api
         userService.refreshToken(api);
@@ -199,12 +182,14 @@ public class SpotifyController {
         model.addAttribute("friendTracks", friendTracks);
 
         userService.refreshToken(api);
+        ArrayList<String> differences = userService.getMixedTapeList(userTracks, friendTracks);
 
         // method creates new playlist and returns the playlist id to the model
-        String newPlaylistId = userService.createNewTrackPlaylist(api, user, friend, userService.getMixedTapeList(userTracks, friendTracks));
+        String newPlaylistId = userService.createNewTrackPlaylist(api, user, friend, differences);
         model.addAttribute("newPlaylistId", newPlaylistId);
 
-
+        userService.addingTracksToPlaylist(api, userId, "4ZubZOiChQsV4IimWeX0U7", friendTracks);
+        */
 
         // return to page
         return "test";

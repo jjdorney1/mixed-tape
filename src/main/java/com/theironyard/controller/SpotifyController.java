@@ -172,6 +172,11 @@ public class SpotifyController {
         // adds the image data to the model
         model.addAttribute("imageUrl", imageUrl);
 
+        // gets the uid for the friend
+        String uid = userService.trimFriendId("spotify:user:12547555");
+        model.addAttribute("uid", uid);
+
+
         // refresh connection to the spotify api
         userService.refreshToken(api);
 

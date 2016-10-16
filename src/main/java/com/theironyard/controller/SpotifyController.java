@@ -3,10 +3,10 @@ package com.theironyard.controller;
 import com.theironyard.bean.Search;
 import com.theironyard.service.UserService;
 import com.wrapper.spotify.Api;
-import com.wrapper.spotify.HttpManager;
 import com.wrapper.spotify.exceptions.WebApiException;
-import com.wrapper.spotify.methods.Request;
-import com.wrapper.spotify.models.*;
+import com.wrapper.spotify.models.AuthorizationCodeCredentials;
+import com.wrapper.spotify.models.Image;
+import com.wrapper.spotify.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -149,7 +149,7 @@ public class SpotifyController {
             e.printStackTrace();
         }
 
-        return "redirect:/playlist";
+        return "options";
 
     }
 

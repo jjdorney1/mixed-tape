@@ -43,11 +43,11 @@
     </div>
     <div class="row">
         <div class="col-sm-4">
-            <form class="center-me" method="get" action="/client_credentials" th:action="@{client_credentials}">
-                <input type="text" name="id" placeholder="Friend's Uri here"/>
+            <form class="center-me" method="get" action="/playlist" th:action="@{playlist}">
+                <input type="text" name="uri" id="uri" placeholder="Friend's Uri here" th:value="${search.getUri()}"/>
                 <a href="#modal">?</a>
                 <div>
-                    <a href="/addUrl" th:href="@{addUrl}" class="btn btn-primary">Go!</a>
+                    <button href="/playlist" th:href="@{playlist}" type="submit" id="search" name="action" value="search" class="btn btn-primary">Go!</button>
 
                 </div>
             </form>
@@ -173,7 +173,7 @@
                 <div></div>
                 <iframe class="circlepic"
                         src=""
-                        th:src="${friendUri}"
+                        th:src="${friendImage}"
                         width="200" height="200" frameborder="0" allowtransparency="true"></iframe>
                 <p>Friends Public Music</p>
                 <iframe src="https://embed.spotify.com/?uri=spotify%3Auser%3A1230303078%3Aplaylist%3A5CxpQYFQxM3X5hTUrgTStn"
@@ -190,7 +190,7 @@
         <div class="col-md-4">
             <div class="center-me">
                 <p>New Playlist</p>
-                <iframe src="https://embed.spotify.com/?uri=spotify%3Auser%3A1261004164%3Aplaylist%3A3N0zsiDQcbQvE2xz3YIvTu"
+                <iframe th:src="https://embed.spotify.com/?uri=spotify%3A" + ${user} "%3A1261004164%3Aplaylist%3A3N0zsiDQcbQvE2xz3YIvTu" src="https://embed.spotify.com/?uri=spotify%3Auser%3A1261004164%3Aplaylist%3A3N0zsiDQcbQvE2xz3YIvTu"
                         width="300" height="380" frameborder="0" allowtransparency="true"></iframe>
                 <br/>
                 <input type="text" placeholder="Rename"/>

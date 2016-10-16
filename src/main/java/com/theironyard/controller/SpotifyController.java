@@ -1,12 +1,12 @@
 package com.theironyard.controller;
 
+import com.theironyard.bean.Search;
 import com.theironyard.service.UserService;
 import com.wrapper.spotify.Api;
+import com.wrapper.spotify.HttpManager;
 import com.wrapper.spotify.exceptions.WebApiException;
-import com.wrapper.spotify.models.AuthorizationCodeCredentials;
-import com.wrapper.spotify.models.Image;
-import com.wrapper.spotify.models.Playlist;
-import com.wrapper.spotify.models.User;
+import com.wrapper.spotify.methods.Request;
+import com.wrapper.spotify.models.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -60,9 +60,20 @@ public class SpotifyController {
     }
 
     @RequestMapping(path = "/playlist")
-    public String getImage(Model model, HttpSession session) {
+    public String getImage(Model model, HttpSession session, String action, Search search) {
+        String friendId;
+        String friendImage;
+
         Api api = (Api) session.getAttribute("api");
         userService.refreshToken(api);
+
+        if(action != null){
+            //search = new Search();
+            friendId = userService.trimFriendId(search.getUri());
+            friendImage = userService.getUserImageUrl(userService.getFriend(api, friendId));
+            model.addAttribute("friendImage", friendImage);
+        }
+
         // list of image data
         List<Image> imageData = userService.getUser(api).getImages();
         // object to hold image data
@@ -83,6 +94,7 @@ public class SpotifyController {
         model.addAttribute("image", image);
         User user = userService.getUser(api);
         model.addAttribute("user", user);
+
         return "playlist";
     }
 
@@ -150,13 +162,15 @@ public class SpotifyController {
         // creates refresh token from api
         userService.refreshToken(api);
 
+
+
         // gets user based on their data and adds to model
         User user = userService.getUser(api);
         model.addAttribute("user", user);
 
         // object to hold user id
         String userId = user.getId();
-/*
+
         // ALL the users tracks in their account and adds to model
         ArrayList<String> userTracks = userService.getAllUserMusicList(userService.getSavedTracks(api), userService.getSavedPlaylists(api, userId));
         model.addAttribute("userTracks", userTracks);
@@ -164,7 +178,7 @@ public class SpotifyController {
         // collects the number and adds to model
         int numberOfTracks = userTracks.size();
         model.addAttribute("numberOfTracks", numberOfTracks);
-
+/*
         // image url for user
         String imageUrl;
         imageUrl = userService.getUserImageUrl(user);
@@ -179,14 +193,14 @@ public class SpotifyController {
 
         // refresh connection to the spotify api
         userService.refreshToken(api);
-
+*/
         // get friend user data [static]
         User friend = userService.getFriend(api, "craaazytaco");
         ArrayList<String> friendTracks = userService.getSavedTracks(api, "craaazytaco");
         model.addAttribute("friend", friend);
         model.addAttribute("friendTracks", friendTracks);
 
-        userService.refreshToken(api);
+        // song differences
         ArrayList<String> differences = userService.getMixedTapeList(userTracks, friendTracks);
 
         // method creates new playlist and returns the playlist id to the model
@@ -194,7 +208,8 @@ public class SpotifyController {
         model.addAttribute("newPlaylistId", newPlaylistId);
 
         userService.addingTracksToPlaylist(api, userId, "4ZubZOiChQsV4IimWeX0U7", friendTracks);
-        */
+
+        int x = 5;
 
         // return to page
         return "test";

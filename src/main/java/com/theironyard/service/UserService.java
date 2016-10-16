@@ -1,12 +1,17 @@
 package com.theironyard.service;
 
+import com.theironyard.entity.*;
 import com.theironyard.repository.*;
 import com.wrapper.spotify.Api;
+import com.wrapper.spotify.HttpManager;
 import com.wrapper.spotify.exceptions.WebApiException;
 import com.wrapper.spotify.methods.AddTrackToPlaylistRequest;
 import com.wrapper.spotify.methods.PlaylistCreationRequest;
 import com.wrapper.spotify.methods.PlaylistRequest;
 import com.wrapper.spotify.models.*;
+import com.wrapper.spotify.models.Image;
+import com.wrapper.spotify.models.Playlist;
+import com.wrapper.spotify.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -360,6 +365,21 @@ public class UserService {
 
     public void addingTracksToPlaylist(Api api, String userId, String playlistId, ArrayList<String> tracksToAdd){
         refreshToken(api);
-        api.addTracksToPlaylist(userId, playlistId, tracksToAdd);
+        ArrayList<String> appendedUriList = new ArrayList<>();
+
+        if(tracksToAdd.size() > 100){
+            for(int x = 0; x < 100; x++){
+                appendedUriList.add("spotify:track:" + tracksToAdd.get(x));
+            }
+        } else {
+            for (String track : tracksToAdd) {
+                appendedUriList.add("spotify:track:" + track);
+            }
+        }
+        try {
+            api.addTracksToPlaylist(userId, playlistId, appendedUriList).build().postJson();
+        } catch (IOException | WebApiException e) {
+            e.printStackTrace();
+        }
     }
 }

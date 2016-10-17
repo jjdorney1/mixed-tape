@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="../static/remodal/dist/remodal.css" th:href="@{remodal/dist/remodal.css}"/>
     <link rel="stylesheet" href="../static/remodal/dist/remodal-default-theme.css"
           th:href="@{remodal/dist/remodal-default-theme.css}"/>
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
     <link rel="stylesheet" href="../static/css/styles.css" th:href="@{css/styles.css}"/>
 
 </head>
@@ -36,11 +37,12 @@
         <div class="md"></div>
         <div class="md">
             <div class="center-me">
-                <div class="email-invite">Email Invite</div>
+                <img src="../static/images/spin.gif" th:src="@{images/spin.gif}" style="display: none"/>
+                <!--<div class="email-invite">Email Invite</div>-->
 
-                <div>
-                    <a class="btn btn-primary">Go!</a>
-                </div>
+                <!--<div>-->
+                    <!--<a class="btn btn-primary">Go!</a>-->
+                <!--</div>-->
             </div>
         </div>
         <div class="md"></div>
@@ -138,13 +140,18 @@
                     <p> We also have a dropdown that has some predetermined options that will
                         allow you see how your library matches up with some popular curated material.</p>
                     <select id="user_id" name="user_id">
-                        <option>select..</option>
-                        <option th:each="user: ${users}"
-                                th:text="${user.getDisplayName}"
-                                th:href="@{https://api.spotify.com/v1/users/daniel}">daniel ek</option>
+                        <option th:value="null">select..</option>
+                        <option th:value="${daniel}">Daniel Ek</option>
+                        <option>Jenn Mcallister</option>
+                        <option>Majestic Casual</option>
+                        <option>Infatuation Music</option>
+                        <option>Pitchfork</option>
+                        <option>Aquarium Drunkard</option>
+                        <option>Beatport</option>
+                        <option>Team Coco</option>
                     </select>
                     <div>
-                        <button class="btn btn-primary" type="submit" id="search" name="action" value="search">Go!</button>
+                        <button class="btn btn-primary" type="submit" id="featuredSearch" name="featuredAction" value="featuredSearch">Go!</button>
                         <!--<a href="/chooseUrl" th:href="@{chooseUrl}" class="btn btn-primary">Go!</a>-->
                     </div>
                 </div>
@@ -164,6 +171,12 @@
         return false;
     }
 
+</script>
+<script>
+    var flip = 0;
+    $( "button" ).click(function() {
+        $( "img" ).toggle( flip++ % 2 === 0 );
+    });
 </script>
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>

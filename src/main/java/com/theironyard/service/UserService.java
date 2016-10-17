@@ -1,24 +1,15 @@
 package com.theironyard.service;
 
-import com.theironyard.entity.*;
 import com.theironyard.repository.*;
 import com.wrapper.spotify.Api;
-import com.wrapper.spotify.HttpManager;
 import com.wrapper.spotify.exceptions.WebApiException;
-import com.wrapper.spotify.methods.AddTrackToPlaylistRequest;
 import com.wrapper.spotify.methods.PlaylistCreationRequest;
-import com.wrapper.spotify.methods.PlaylistRequest;
 import com.wrapper.spotify.models.*;
-import com.wrapper.spotify.models.Image;
-import com.wrapper.spotify.models.Playlist;
-import com.wrapper.spotify.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by davehochstrasser on 10/3/16.
@@ -274,6 +265,7 @@ public class UserService {
         try {
             do {
                 // created playlist track list to iterate over
+                //System.out.println("playlistId: " + playlistId);
                 playlistTracksPage = api.getPlaylistTracks(userId, playlistId)
                         .limit(100)
                         .offset(offset)
@@ -282,14 +274,16 @@ public class UserService {
 
                 // iterates over the list to pull out the track id
                 for (PlaylistTrack playlistTrack : playlistTracks) {
+                    //System.out.println("***" + playlistTrack.getTrack().getAlbum().getType());
                     String trackId = playlistTrack.getTrack().getId();
                     tracks.add(trackId);
                 }
                 offset = offset + 100;
             } while (playlistTracksPage.getNext() != null);
             // exception catches
-        } catch (IOException | WebApiException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            System.out.println("WARGARBLE!!!");
+            //e.printStackTrace();
         }
         // returns the list of track ids
         return tracks;
@@ -320,6 +314,8 @@ public class UserService {
                 newMusic.add(friendTrack);
             }
         }
+        long seed = System.nanoTime();
+        Collections.shuffle(newMusic, new Random(seed));
         return newMusic;
     }
 
@@ -333,7 +329,7 @@ public class UserService {
         Playlist newPlaylist;
 
         // creates new playlist request
-        PlaylistCreationRequest request = api.createPlaylist(userId, "MixedTape")
+        PlaylistCreationRequest request = api.createPlaylist(userId, "MixedTape from " + friend.getDisplayName() + "'s playlists" )
                 .publicAccess(true)
                 .build();
 
@@ -381,5 +377,19 @@ public class UserService {
         } catch (IOException | WebApiException e) {
             e.printStackTrace();
         }
+    }
+
+    public List<com.theironyard.entity.User> getFeaturedUsers() {
+        return userRepository.findAll();
+    }
+
+    public void renameNewPlaylist(Api api, User user, String playlistId, String newName){
+
+        try {
+            api.changePlaylistDetails(user.getId(), playlistId).name(newName).build().putJson();
+        } catch (IOException | WebApiException e) {
+            e.printStackTrace();
+        }
+
     }
 }

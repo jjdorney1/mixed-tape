@@ -147,23 +147,26 @@
                         src=""
                         th:src="${imageUrl}"
                         width="200" height="200" frameborder="0" allowtransparency="true"></iframe>
-                <p>All Your Music</p>
-                <iframe src="https://embed.spotify.com/?uri=spotify%3Auser%3A1230303078%3Aplaylist%3A2lrzazFNgZKFSeno32xSvK"
-                        width="300" height="380" frameborder="0" allowtransparency="true"></iframe>
+                <!--<p>All Your Music</p>-->
+                <!--<iframe src="https://embed.spotify.com/?uri=spotify%3Auser%3A1230303078%3Aplaylist%3A2lrzazFNgZKFSeno32xSvK"-->
+                        <!--width="300" height="380" frameborder="0" allowtransparency="true"></iframe>-->
 
             </div>
         </div>
         <div class="col-sm-4"><br/>
             <div class="center-me">
-                <img src="../static/images/spin.gif" th:src="@{images/spin.gif}"/>
+                <!--<img src="../static/images/spin.gif" th:src="@{images/spin.gif}"/>-->
+                <p th:text="${newPlaylistName}">New Playlist</p>
+                <iframe th:src="${embedPlaylist}" src="https://embed.spotify.com/?uri=spotify%3Auser%3A1261004164%3Aplaylist%3A3N0zsiDQcbQvE2xz3YIvTu"
+                        width="300" height="380" frameborder="0" allowtransparency="true"></iframe>
                 <br/><br/><br/><br/>
 
-                <p>Common Playlist</p>
-                <iframe src="https://embed.spotify.com/?uri=spotify%3Auser%3A1230303078%3Aplaylist%3A2lOi2XOCTPwar2rluxeacr"
-                        width="300" height="380" frameborder="0" allowtransparency="true"></iframe>
-                <br/>
-                <input type="text" placeholder="Rename"/>
-                <a href="/saveNewPlaylist" th:href="@{saveNewPlaylist}" class="btn btn-primary">Save</a>
+                <!--<p>Common Playlist</p>-->
+                <!--<iframe src="https://embed.spotify.com/?uri=spotify%3Auser%3A1230303078%3Aplaylist%3A2lOi2XOCTPwar2rluxeacr"-->
+                        <!--width="300" height="380" frameborder="0" allowtransparency="true"></iframe>-->
+                <!--<br/>-->
+                <!--<input type="text" placeholder="Rename"/>-->
+                <!--<a href="/saveNewPlaylist" th:href="@{saveNewPlaylist}" class="btn btn-primary">Save</a>-->
 
 
             </div>
@@ -175,9 +178,9 @@
                         src=""
                         th:src="${friendImage}"
                         width="200" height="200" frameborder="0" allowtransparency="true"></iframe>
-                <p>Friends Public Music</p>
-                <iframe src="https://embed.spotify.com/?uri=spotify%3Auser%3A1230303078%3Aplaylist%3A5CxpQYFQxM3X5hTUrgTStn"
-                        width="300" height="380" frameborder="0" allowtransparency="true"></iframe>
+                <!--<p>Friends Public Music</p>-->
+                <!--<iframe src="https://embed.spotify.com/?uri=spotify%3Auser%3A1230303078%3Aplaylist%3A5CxpQYFQxM3X5hTUrgTStn"-->
+                        <!--width="300" height="380" frameborder="0" allowtransparency="true"></iframe>-->
             </div>
         </div>
     </div>
@@ -189,12 +192,14 @@
         <div class="col-md-4"></div>
         <div class="col-md-4">
             <div class="center-me">
-                <p>New Playlist</p>
-                <iframe th:src="@{https://embed.spotify.com/?uri=spotify%3Auser%3A1261004164%3Aplaylist%3A3N0zsiDQcbQvE2xz3YIvTu}" src="https://embed.spotify.com/?uri=spotify%3Auser%3A1261004164%3Aplaylist%3A3N0zsiDQcbQvE2xz3YIvTu"
-                        width="300" height="380" frameborder="0" allowtransparency="true"></iframe>
+                <!--<p th:text="${newPlaylistName}">New Playlist</p>-->
+                <!--<iframe th:src="${embedPlaylist}" src="https://embed.spotify.com/?uri=spotify%3Auser%3A1261004164%3Aplaylist%3A3N0zsiDQcbQvE2xz3YIvTu"-->
+                        <!--width="300" height="380" frameborder="0" allowtransparency="true"></iframe>-->
                 <br/>
-                <input type="text" placeholder="Rename"/>
-                <a href="/saveNewPlaylist" th:href="@{saveNewPlaylist}" class="btn btn-primary">Save</a>
+                <!--<form th:action="@{playlist}" action="playlist.html" method="post">-->
+                    <!--<input type="text" th:placeholder="${newPlaylistName}"/>-->
+                    <!--<button type="submit" class="btn btn-primary" id="rename" value="rename" name="action" href="/playlist" th:href="@{playlist}">Save</button>-->
+                <!--</form>-->
 
             </div>
         </div>

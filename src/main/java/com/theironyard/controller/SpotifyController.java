@@ -1,5 +1,6 @@
 package com.theironyard.controller;
 
+import com.theironyard.bean.Rename;
 import com.theironyard.bean.Search;
 import com.theironyard.service.UserService;
 import com.wrapper.spotify.Api;
@@ -48,30 +49,54 @@ public class SpotifyController {
         return "index";
     }
 
-    @RequestMapping(path = "/playlist2")
-    public String addUrl(Model model, HttpSession session) {
+    @RequestMapping(path = "/playlist")
+    public String addUrl(Model model, HttpSession session, User user, String action, Rename rename, String playlistId) throws InterruptedException {
         Api api = (Api) session.getAttribute("api");
         userService.refreshToken(api);
-        User user = userService.getUser(api);
+//        User user = userService.getUser(api);
         String userId = user.getId();
+//        userService.renameNewPlaylist(api, user, playlistId, rename.getNewName());
         model.addAttribute("user", user);
         model.addAttribute("userId", userId);
+
         return "playlist";
     }
 
     @RequestMapping(path = "/options")
-    public String getImage(Model model, HttpSession session, String action, Search search) {
+    public String getImage(Model model, HttpSession session, String action, Search search, Search featuredSearch, String featuredAction) throws InterruptedException {
         String friendId;
         String friendImage;
-
+        User friend = new User();
+        User featuredUser = new User();
+        List<com.theironyard.entity.User> featuredUsers = userService.getFeaturedUsers();
+        model.addAttribute("featuredUsers", featuredUsers);
         Api api = (Api) session.getAttribute("api");
         userService.refreshToken(api);
 
         if(action != null && search != null){
             //search = new Search();
             friendId = userService.trimFriendId(search.getUri());
+            try {
+                friend = api.getUser(friendId).build().get();
+            } catch (IOException | WebApiException e) {
+                e.printStackTrace();
+            }
             friendImage = userService.getUserImageUrl(userService.getFriend(api, friendId));
             model.addAttribute("friendImage", friendImage);
+            model.addAttribute("friend", friend);
+
+        }else if(featuredAction != null && featuredSearch != null){
+            //search = new Search();
+            friendId = featuredSearch.getUri();
+            try {
+                friend = api.getUser(friendId).build().get();
+            } catch (IOException | WebApiException e) {
+                e.printStackTrace();
+            }
+//            friendImage = userService.getUserImageUrl(userService.getFriend(api, friendId));
+//            model.addAttribute("friendImage", friendImage);
+//            model.addAttribute(featuredUser);
+
         }
 
         // list of image data
@@ -94,7 +119,25 @@ public class SpotifyController {
         model.addAttribute("image", image);
         User user = userService.getUser(api);
         model.addAttribute("user", user);
+        ArrayList<String> userTracks = userService.getAllUserMusicList(userService.getSavedTracks(api), userService.getSavedPlaylists(api, user.getId()));
+        model.addAttribute("userTracks", userTracks);
+        ArrayList<String> friendTracks = userService.getSavedTracks(api, friend.getId());
+        model.addAttribute("friend", friend);
+        model.addAttribute("friendTracks", friendTracks);
+        ArrayList<String> differences = userService.getMixedTapeList(userTracks, friendTracks);
 
+        // method creates new playlist and returns the playlist id to the model
+        String newPlaylistId = userService.createNewTrackPlaylist(api, user, friend, differences);
+        model.addAttribute("newPlaylistId", newPlaylistId);
+        String embedPlaylist = "https://embed.spotify.com/?uri=spotify%3Auser%3A" + user.getId() + "%3Aplaylist%3A" + newPlaylistId;
+        model.addAttribute("embedPlaylist", embedPlaylist);
+        String newPlaylistName = null;
+        try {
+            newPlaylistName = api.getPlaylist(user.getId(), newPlaylistId).build().get().getName();
+        } catch (IOException | WebApiException e) {
+            e.printStackTrace();
+        }
+        model.addAttribute("newPlaylistName", newPlaylistName);
         return "playlist";
     }
 

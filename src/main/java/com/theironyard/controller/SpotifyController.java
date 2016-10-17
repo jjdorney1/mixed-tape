@@ -59,7 +59,7 @@ public class SpotifyController {
         return "playlist";
     }
 
-    @RequestMapping(path = "/playlist")
+    @RequestMapping(path = "/options")
     public String getImage(Model model, HttpSession session, String action, Search search) {
         String friendId;
         String friendImage;
@@ -67,7 +67,7 @@ public class SpotifyController {
         Api api = (Api) session.getAttribute("api");
         userService.refreshToken(api);
 
-        if(action != null){
+        if(action != null && search != null){
             //search = new Search();
             friendId = userService.trimFriendId(search.getUri());
             friendImage = userService.getUserImageUrl(userService.getFriend(api, friendId));

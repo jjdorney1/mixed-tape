@@ -48,11 +48,11 @@
     </div>
     <div class="row">
         <div class="col-sm-4">
-            <form class="center-me" method="get" action="/options" th:action="@{options}">
+            <form class="center-me" method="post" action="/options" th:action="@{options}">
                 <p>If you want to just sort through one of your
                     Spotify friends public playlists then you'll need to click the ? next to friend's uri here and
                     follow those instructions. </p>
-                <!--<input type="text" name="uri" id="uri" placeholder="Friend's Uri here" th:value="${search.getUri()}" />-->
+                <input type="text" name="uri" id="uri" placeholder="Friend's Uri here" th:value="${search}" />
                 <a href="#modal">?</a>
                 <div>
                     <button href="/options" th:href="@{options}" type="submit" id="search" name="action"
@@ -135,16 +135,16 @@
             <form class="center-me" method="post" action="options.html"
                   th:action="@{options}">
                 <div class="center-me">
-                    <p>Lastly, we have a dropdown that has some predetermined options that will
+                    <p> We also have a dropdown that has some predetermined options that will
                         allow you see how your library matches up with some popular curated material.</p>
                     <select id="user_id" name="user_id">
                         <option>select..</option>
                         <option th:each="user: ${users}"
                                 th:text="${user.getDisplayName}"
-                                th:value="${user.getId}">daniel ek</option>
+                                th:href="@{https://api.spotify.com/v1/users/daniel}">daniel ek</option>
                     </select>
                     <div>
-                        <button type="submit" id="search" name="action" value="search">Go!</button>
+                        <button class="btn btn-primary" type="submit" id="search" name="action" value="search">Go!</button>
                         <!--<a href="/chooseUrl" th:href="@{chooseUrl}" class="btn btn-primary">Go!</a>-->
                     </div>
                 </div>

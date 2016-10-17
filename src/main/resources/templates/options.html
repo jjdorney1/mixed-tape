@@ -48,11 +48,11 @@
     </div>
     <div class="row">
         <div class="col-sm-4">
-            <form class="center-me" method="get" action="/options" th:action="@{options}">
+            <form class="center-me" method="post" action="/options" th:action="@{options}">
                 <p>If you want to just sort through one of your
                     Spotify friends public playlists then you'll need to click the ? next to friend's uri here and
                     follow those instructions. </p>
-                <!--<input type="text" name="uri" id="uri" placeholder="Friend's Uri here" th:value="${search.getUri()}" />-->
+                <input type="text" name="uri" id="uri" placeholder="Friend's Uri here" th:value="${search}" />
                 <a href="#modal">?</a>
                 <div>
                     <button href="/options" th:href="@{options}" type="submit" id="search" name="action"

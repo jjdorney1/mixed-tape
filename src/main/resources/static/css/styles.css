@@ -159,6 +159,16 @@ h1 {
     background: rgba(0,0,0,.6);
 }
 
+input, select{
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    height: 35px;
+    text-shadow: none;
+    color: #A9A9A9;
+}
+
+
 
 
 

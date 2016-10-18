@@ -143,10 +143,10 @@
     <div class="row">
         <div class="col-sm-4">
             <div class="center-me">
-                <iframe class="circlepic"
-                        src=""
+                <img class="circlepic"
+                        src="../static/images/person-placeholder.jpg"
                         th:src="${imageUrl}"
-                        width="200" height="200" frameborder="0" allowtransparency="true"></iframe>
+                        width="200" height="200"/>
                 <!--<p>All Your Music</p>-->
                 <!--<iframe src="https://embed.spotify.com/?uri=spotify%3Auser%3A1230303078%3Aplaylist%3A2lrzazFNgZKFSeno32xSvK"-->
                         <!--width="300" height="380" frameborder="0" allowtransparency="true"></iframe>-->
@@ -174,10 +174,10 @@
         <div class="col-sm-4">
             <div class="center-me">
                 <div></div>
-                <iframe class="circlepic"
-                        src=""
-                        th:src="${friendImage}"
-                        width="200" height="200" frameborder="0" allowtransparency="true"></iframe>
+                <img class="circlepic"
+                        src="../static/images/teamcoco.jpg"
+                        th:src="@{${friendImageUrl}}"
+                        height="200" width="200"/>
                 <!--<p>Friends Public Music</p>-->
                 <!--<iframe src="https://embed.spotify.com/?uri=spotify%3Auser%3A1230303078%3Aplaylist%3A5CxpQYFQxM3X5hTUrgTStn"-->
                         <!--width="300" height="380" frameborder="0" allowtransparency="true"></iframe>-->

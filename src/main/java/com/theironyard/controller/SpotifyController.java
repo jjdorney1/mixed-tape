@@ -64,7 +64,7 @@ public class SpotifyController {
 
     @RequestMapping(path = "/options")
     public String getImage(Model model, HttpSession session, String action, Search search, Search featuredSearch, String featuredAction) throws InterruptedException {
-        String friendId;
+        String friendId = null;
         String friendImage;
         User friend = new User();
         User featuredUser = new User();
@@ -117,6 +117,10 @@ public class SpotifyController {
         // adds the image data to the model
         model.addAttribute("imageUrl", imageUrl);
         model.addAttribute("image", image);
+        String friendImageUrl = userService.getFeaturedUserImage(api, friendId);
+
+
+        model.addAttribute("friendImageUrl", friendImageUrl);
         User user = userService.getUser(api);
         model.addAttribute("user", user);
         ArrayList<String> userTracks = userService.getAllUserMusicList(userService.getSavedTracks(api), userService.getSavedPlaylists(api, user.getId()));

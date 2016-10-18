@@ -392,4 +392,31 @@ public class UserService {
         }
 
     }
+
+    public String getFeaturedUserImage(Api api, String featuredUserId) {
+
+        String featuredUserImage = null;
+        String featuredUserName = null;
+        try {
+            featuredUserName = api.getUser(featuredUserId).build().get().getDisplayName();
+        } catch (IOException | WebApiException e) {
+            e.printStackTrace();
+        }
+
+        if (featuredUserName.equals("Pitchfork")) {
+            featuredUserImage = "/images/pitchforkmedia.jpg";
+        } else if (featuredUserName.equals("Team Coco")) {
+            featuredUserImage = "/images/teamcoco.jpg";
+        } else if (featuredUserName.equals("Majestic Casual")) {
+            featuredUserImage = "/images/majesticcasualofficial.jpg";
+        } else if (featuredUserName.equals("Beatport")) {
+            featuredUserImage = "/images/beatportprofile.jpg";
+        } else if (featuredUserName.equals("Aquarium Drunkard")) {
+            featuredUserImage = "/images/aquariumdrunkard.jpg";
+        } else if (featuredUserName.equals("Infatuation")) {
+            featuredUserImage = "/images/infatuationmusic.jpg";
+        }
+
+        return featuredUserImage;
+    }
 }

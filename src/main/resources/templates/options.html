@@ -24,8 +24,8 @@
         <div class="col-sm-4">
             <h1 class="center-header">Mixed Tape</h1>
             <p class="center-me">So you've got a couple options here.</p>
-            <p class="center-me">The email option will allow you to invite a friend to our site. Once they've
-                signed up you'll have access to virtually their whole library.</p>
+            <!--<p class="center-me">The email option will allow you to invite a friend to our site. Once they've-->
+                <!--signed up you'll have access to virtually their whole library.</p>-->
         </div>
 
         <div class="col-sm-4">
@@ -139,16 +139,14 @@
                 <div class="center-me">
                     <p> We also have a dropdown that has some predetermined options that will
                         allow you see how your library matches up with some popular curated material.</p>
-                    <select id="user_id" name="user_id">
-                        <option th:value="null">select..</option>
-                        <option th:value="${daniel}">Daniel Ek</option>
-                        <option>Jenn Mcallister</option>
-                        <option>Majestic Casual</option>
-                        <option>Infatuation Music</option>
-                        <option>Pitchfork</option>
-                        <option>Aquarium Drunkard</option>
-                        <option>Beatport</option>
-                        <option>Team Coco</option>
+                    <select id="user_id" name="uri">
+                        <option th:value="${null}">select..</option>
+                        <option value="majesticcasualofficial">Majestic Casual</option>
+                        <option value="infatuationmusic">Infatuation Music</option>
+                        <option value="pitchforkmedia">Pitchfork</option>
+                        <option value="aquariumdrunkard">Aquarium Drunkard</option>
+                        <option value="beatportprofile">Beatport</option>
+                        <option value="teamcoco">Team Coco</option>
                     </select>
                     <div>
                         <button class="btn btn-primary" type="submit" id="featuredSearch" name="featuredAction" value="featuredSearch">Go!</button>

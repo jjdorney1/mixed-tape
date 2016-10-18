@@ -19,25 +19,19 @@ import java.util.*;
 public class UserService {
 
     @Autowired
-    AlbumRepository albumRepository;
-
-    @Autowired
     InviteeRepository inviteeRepository;
 
     @Autowired
     ImageRepository imageRepository;
 
     @Autowired
-    TrackRepository trackRepository;
-
-    @Autowired
     PlaylistRepository playlistRepository;
 
     @Autowired
-    ArtistRepository artistRepository;
+    UserRepository userRepository;
 
     @Autowired
-    UserRepository userRepository;
+    ClientRepository clientRepository;
 
 
     // setups up the refresh token for the api
@@ -327,9 +321,16 @@ public class UserService {
         String newPlaylistId = null;
 
         Playlist newPlaylist;
+        String friendName;
+
+        if(friend.getDisplayName() == null){
+            friendName = friend.getId();
+        } else {
+            friendName = friend.getDisplayName();
+        }
 
         // creates new playlist request
-        PlaylistCreationRequest request = api.createPlaylist(userId, "MixedTape from " + friend.getDisplayName() + "'s playlists" )
+        PlaylistCreationRequest request = api.createPlaylist(userId, "MixedTape from " + friendName + "'s playlists" )
                 .publicAccess(true)
                 .build();
 

@@ -2,8 +2,8 @@ package com.theironyard.entity;
 
 import org.hibernate.validator.constraints.NotBlank;
 
-import javax.persistence.*;
-import java.util.List;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
 /**
  * Created by davehochstrasser on 10/3/16.
@@ -20,18 +20,13 @@ public class Playlist {
     private String picture;
     private Integer length;
 
-    @ManyToMany
-    @JoinColumn(name = "playlist_id")
-    private List<Track> tracks;
-
     public Playlist() {
     }
 
-    public Playlist(String id, String title, Boolean status, List<Track> tracks, String picture, Integer length) {
+    public Playlist(String id, String title, Boolean status, String picture, Integer length) {
         this.id = id;
         this.title = title;
         this.status = status;
-        this.tracks = tracks;
         this.picture = picture;
         this.length = length;
     }
@@ -58,14 +53,6 @@ public class Playlist {
 
     public void setStatus(Boolean status) {
         this.status = status;
-    }
-
-    public List<Track> getTracks() {
-        return tracks;
-    }
-
-    public void setTracks(List<Track> tracks) {
-        this.tracks = tracks;
     }
 
     public String getPicture() {

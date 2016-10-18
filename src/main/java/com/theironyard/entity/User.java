@@ -30,10 +30,6 @@ public class User {
 
     @ManyToMany
     @Fetch(FetchMode.SELECT)
-    private List<Track> tracks;
-
-    @ManyToMany
-    @Fetch(FetchMode.SELECT)
     private List<Playlist>playlists;
 
 
@@ -109,14 +105,6 @@ public class User {
 
     public void setActive(Boolean active) {
         this.active = active;
-    }
-
-    public List<Track> getTracks() {
-        return tracks;
-    }
-
-    public void setTracks(List<Track> tracks) {
-        this.tracks = tracks;
     }
 
     public List<Playlist> getPlaylists() {

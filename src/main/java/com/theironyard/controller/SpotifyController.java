@@ -58,6 +58,7 @@ public class SpotifyController {
         Api api = (Api) session.getAttribute("api");
         userService.refreshToken(api);
 
+
         if (action != null && search != null) {
             friendId = userService.trimFriendId(search.getUri());
             try {
@@ -101,6 +102,8 @@ public class SpotifyController {
         model.addAttribute("image", image);
 
         User user = userService.getUser(api);
+        String userId = user.getId();
+        model.addAttribute("userId", userId);
         model.addAttribute("user", user);
         ArrayList<String> userTracks = userService.getAllUserMusicList(userService.getSavedTracks(api), userService.getSavedPlaylists(api, user.getId()));
         model.addAttribute("userTracks", userTracks);
@@ -161,7 +164,7 @@ public class SpotifyController {
     }
 
     @RequestMapping(path = "/callback")
-    public String doCallback(String code, HttpSession session) {
+    public String doCallback(String code, HttpSession session, Model model) {
 
         Api api = (Api) session.getAttribute("api");
         /* Make a token request. Asynchronous requests are made with the .getAsync method and synchronous requests
@@ -175,6 +178,17 @@ public class SpotifyController {
         } catch (IOException | WebApiException e) {
             e.printStackTrace();
         }
+
+        User user = new User();
+        try {
+            user = api.getMe().build().get();
+        } catch (IOException | WebApiException e) {
+            e.printStackTrace();
+        }
+
+        String userId = user.getId();
+        model.addAttribute("userId", userId);
+
         return "options";
     }
 }

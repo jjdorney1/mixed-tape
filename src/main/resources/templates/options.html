@@ -35,8 +35,13 @@
 
     </div>
     <div class="row">
-        <div class="md"></div>
-        <div class="md">
+        <div class="col-md-4">
+            <div class="center-me">
+                <img src="../static/images/friends.png" th:src="@{images/friends.png}" class="circlepic"
+                height="200" width="200"/>
+            </div>
+        </div>
+        <div class="col-md-4">
             <div class="center-me">
                 <img src="../static/images/spin.gif" th:src="@{images/spin.gif}" style="display: none"/>
                 <!--<div class="email-invite">Email Invite</div>-->
@@ -46,7 +51,12 @@
                 <!--</div>-->
             </div>
         </div>
-        <div class="md"></div>
+        <div class="col-md-4">
+            <div class="center-me">
+                <img src="../static/images/record.png" th:src="@{images/record.png}" class="circlepic"
+                     height="200" width="200"/>
+            </div>
+        </div>
 
     </div>
     <div class="row">
@@ -66,7 +76,7 @@
             <div class="remodal-bg">
                 <div class="remodal" data-remodal-id="modal">
 
-                    <button data-remodal-action="close" class="remodal-close">close</button>
+                    <a data-remodal-action="close" class="remodal-close"></a>
                     <a href="options.html" th:href="@{options}"></a>
                     <div class="modal-container">
                         <div class="center-header">

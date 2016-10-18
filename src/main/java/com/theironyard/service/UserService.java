@@ -30,8 +30,6 @@ public class UserService {
     @Autowired
     UserRepository userRepository;
 
-    @Autowired
-    ClientRepository clientRepository;
 
 
     // setups up the refresh token for the api

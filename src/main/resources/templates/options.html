@@ -23,7 +23,8 @@
         <div class="col-sm-4"></div>
         <div class="col-sm-4">
             <h1 class="center-header">Mixed Tape</h1>
-            <p class="center-me">So you've got a couple options here.</p>
+            <p class="center-me">We'll reach out and pull music you don't have in your Spotify library right
+                now to make a brand spanking new playlist. So you've got a couple options here:</p>
             <!--<p class="center-me">The email option will allow you to invite a friend to our site. Once they've-->
                 <!--signed up you'll have access to virtually their whole library.</p>-->
         </div>
@@ -51,9 +52,7 @@
     <div class="row">
         <div class="col-sm-4">
             <form class="center-me" method="post" action="/options" th:action="@{options}">
-                <p>If you want to just sort through one of your
-                    Spotify friends public playlists then you'll need to click the ? next to friend's uri here and
-                    follow those instructions. </p>
+                <p>1. Create a mixed tape playlist from one of your Spotify friends.</p>
                 <input type="text" name="uri" id="uri" placeholder="Friend's Uri here" th:value="${search}" />
                 <a href="#modal">?</a>
                 <div>
@@ -137,8 +136,7 @@
             <form class="center-me" method="post" action="options.html"
                   th:action="@{options}">
                 <div class="center-me">
-                    <p> We also have a dropdown that has some predetermined options that will
-                        allow you see how your library matches up with some popular curated material.</p>
+                    <p>2. Create a mixed tape playlist from a featured curator.</p>
                     <select id="user_id" name="uri">
                         <option th:value="${null}">select..</option>
                         <option value="majesticcasualofficial">Majestic Casual</option>

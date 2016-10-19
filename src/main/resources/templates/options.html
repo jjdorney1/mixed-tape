@@ -63,7 +63,7 @@
         <div class="col-sm-4">
             <form class="center-me" method="post" action="/options" th:action="@{options}">
                 <p>1. Create a mixed tape playlist from one of your Spotify friends.</p>
-                <input type="text" name="uri" id="uri" placeholder="Friend's Uri here" th:value="${search}" />
+                <input type="text" name="uri" id="uri" placeholder="Friend's URI here" th:value="${search}" />
                 <a href="#modal">?</a>
                 <div>
                     <button href="/options" th:href="@{options}" type="submit" id="search" name="action"

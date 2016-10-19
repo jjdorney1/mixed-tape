@@ -159,7 +159,12 @@
                 <p th:text="${newPlaylistName}">New Playlist</p>
                 <iframe th:src="${embedPlaylist}" src="https://embed.spotify.com/?uri=spotify%3Auser%3A1261004164%3Aplaylist%3A3N0zsiDQcbQvE2xz3YIvTu"
                         width="300" height="380" frameborder="0" allowtransparency="true"></iframe>
-                <br/><br/><br/><br/>
+                <br/>
+                <p>Your new playlist is playable here if you like. It also appears with your public playlists on your
+                Spotify profile page. If you'd like to make some more playlists, click the button below to return to
+                the home page.</p>
+                <a class="btn btn-primary" th:href="@{'/'}">Go Home!</a>
+                <br/><br/><br/>
 
                 <!--<p>Common Playlist</p>-->
                 <!--<iframe src="https://embed.spotify.com/?uri=spotify%3Auser%3A1230303078%3Aplaylist%3A2lOi2XOCTPwar2rluxeacr"-->

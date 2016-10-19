@@ -408,12 +408,12 @@ public class UserService {
             featuredUserImage = "/images/teamcoco.jpg";
         } else if (featuredUserName.equals("Majestic Casual")) {
             featuredUserImage = "/images/majesticcasualofficial.jpg";
-        } else if (featuredUserName.equals("Beatport")) {
-            featuredUserImage = "/images/beatportprofile.jpg";
+        } else if (featuredUserName.equals("ESPN Music")) {
+            featuredUserImage = "/images/espnmusic.jpg";
         } else if (featuredUserName.equals("Aquarium Drunkard")) {
             featuredUserImage = "/images/aquariumdrunkard.jpg";
-        } else if (featuredUserName.equals("Infatuation")) {
-            featuredUserImage = "/images/infatuationmusic.jpg";
+        } else if (featuredUserName.equals("BET Networks")) {
+            featuredUserImage = "/images/betnetworks.jpg";
         }
 
         return featuredUserImage;

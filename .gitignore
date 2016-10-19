@@ -18,7 +18,7 @@ target/
 nbproject/private/
 build/
 nbbuild/
-dist/
+
 nbdist/
 .nb-gradle/
 /src/main/resources/authorization_code/app.js
